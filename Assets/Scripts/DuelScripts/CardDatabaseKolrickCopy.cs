@@ -274,3 +274,6 @@ public class CardDatabaseKolrickCopy : MonoBehaviour
 		return card;
 	}
 }
+
+
+	//Kolrick was HERE!!!!!!!!!fcfccccc
