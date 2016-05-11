@@ -1,0 +1,46 @@
+Computer Version: True
+Hololens Version: False
+Hologram Stage Version: False
+Life Points: 8000
+Time Limit: 180
+Starting Hand: 5
+Cards Per Draw: 1
+TCG/OCG: True
+TCG: False
+OCG: False
+Unspecified: False
+Anime: False
+Turbo Duel: False
+Single Duel: True
+Match: False
+Tag Duel: False
+Use Obsolete Rulings: False
+Dont Check Deck: False
+Do Not Shuffle Deck: False
+Manual Dueling: False
+AIDeckDefaultSelection: 
+Aggresive: False
+Stall: False
+Defensive: False
+Dynamic: True
+Random: False
+Impulse: False
+Cheating AI: False
+Nickname: 
+Server: 
+Password: 
+Brightness: 0.7800898
+Music: 0.6391791
+Sound Effects: 0.5242706
+Camera Sensitivity: 0
+Deck Extension: .txt
+Auto Card Placement: True
+Random Card Placement: True
+Mute Opponent: False
+Mute Spectators: True
+Auto Chain Order: False
+No Delay For Chain: False
+Ask To Save Replay: True
+Show Debug: True
+Show FPS: True
+Show Lines: False

@@ -1,0 +1,3 @@
+BundleName:modelsbundle.unity3d
+VersionNumber:1
+

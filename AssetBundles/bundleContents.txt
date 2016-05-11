@@ -1,0 +1,4 @@
+BundleName:modelsbundle.unity3d
+NumberOfAssets:2
+21208154.obj
+89631139.fbx
