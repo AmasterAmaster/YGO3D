@@ -1,0 +1,28 @@
+Importent/Must have:
+- Each card effect in script form (with individual working effects in the game)
+- Networking (Connect to another client and play the game) [Reason: Dogfooding]
+- Finalize Core Mechanics:
+	- Drawing
+	- Discarding
+	- Other Summons:
+		- Tributing
+		- XYZ
+		- Synchro
+		- Fusion
+		- Pendulum
+		- Ritual
+	- Shuffling (Hand and Deck)
+	- Searching (Deck and Graveyard)
+
+Not Importent/Implement later:
+- Models and Particle Effects for each card (playable and animated)
+- Music implementation (Sound effects and Background music)
+- AI Programming (for solo matches)
+
+Extras:
+- Art Design rework for menus and buttons (in all scenes)
+- Art Design rework for main duel field
+
+-----------------------------------------
+Working on:
+- Networking (Person: Andrew)
