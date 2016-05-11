@@ -29,18 +29,19 @@ Cheating AI: False
 Nickname: 
 Server: 
 Password: 
-Brightness: 0.7800898
-Music: 0.6391791
-Sound Effects: 0.5242706
-Camera Sensitivity: 0
-Deck Extension: .txt
+
+Brightness: 0.5
+Music: 0
+Sound Effects: 0
+Camera Sensitivity: 1
+Deck Extension: 
 Auto Card Placement: True
-Random Card Placement: True
-Mute Opponent: False
+Random Card Placement: False
+Mute Opponent: True
 Mute Spectators: True
-Auto Chain Order: False
+Auto Chain Order: True
 No Delay For Chain: False
-Ask To Save Replay: True
-Show Debug: True
-Show FPS: True
+Ask To Save Replay: False
+Show Debug: False
+Show FPS: False
 Show Lines: False

@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System.IO;						//USE: File access
 using UnityEngine.SceneManagement;
+using System.Configuration;
+using System.Threading;
 
 public class OptionsScript : MonoBehaviour
 {
@@ -68,7 +70,9 @@ public class OptionsScript : MonoBehaviour
 	
 	public Button moreOptions;
 	public Button hostNow;
+	public Button joinNow;
 	public Button backOptionsButton;
+	public Button saveButton;
 	
 	//Options variables (second page)
 	public Slider brightnessSlider;
@@ -153,21 +157,32 @@ public class OptionsScript : MonoBehaviour
 	public bool showDebug = false;
 	public bool showFPS = false;
 	public bool showLines = false;
-	
-	void Start()
-	{
-		//find the options file if there is one
-		LoadOptions();
-	}
+
+	//Other variables
+	public bool doOnce = true;
 	
 	//Update is called once per frame
 	void Update()
 	{
 		//If we are in options...
-		//if(Application.loadedLevel == 4)
 		if(SceneManager.GetActiveScene().buildIndex == 4)
 		{
 			int result;
+
+			if(doOnce)
+			{
+				//Find objects in this menu
+				FindAllObjects();
+
+				//Load all the options
+				LoadOptions();
+
+				//Set all values after finding all objects
+				SetAllOptionValues();
+
+				//Fix the buttons (deleting the other OptionsManager script removed all button functionallity)
+				FixButtons();
+			}
 			
 			//Continuously set the values (to be saved later if needed or used only one time)
 			computerVersion = computerVersionToggle.isOn;
@@ -245,15 +260,29 @@ public class OptionsScript : MonoBehaviour
 			showDebug = showDebugToggle.isOn;
 			showFPS = showFPSToggle.isOn;
 			showLines = showLinesToggle.isOn;
+
+			if(doOnce)
+			{
+				//Clean up for page seperation
+				TurnOffUneededObjects();
+				doOnce = false;
+			}
 		}
 	}
-	
-	void OnLevelWasLoaded()
+
+	public void ExitOptions()
 	{
-		//Check if we are in the options scene...
-		//if(Application.loadedLevel == 4)
+		SceneManager.LoadScene("MainMenu");
+	}
+
+	public void FindAllObjects()
+	{
+		//Check if we are in Options
 		if(SceneManager.GetActiveScene().buildIndex == 4)
 		{
+			//Turn everything on to find everything (fail safe - implement later)
+			//TurnOnEverything();
+
 			//Find all the nessesary components needed for options
 			computerVersionToggle = GameObject.Find("ComputerVersionToggle").GetComponent<Toggle>();
 			hololensVersionToggle = GameObject.Find("HololensVersionToggle").GetComponent<Toggle>();
@@ -286,7 +315,7 @@ public class OptionsScript : MonoBehaviour
 			nicknameInputField = GameObject.Find("NicknameInputField").GetComponent<InputField>();
 			serverInputField = GameObject.Find("ServerInputField").GetComponent<InputField>();
 			passwordInputField = GameObject.Find("PasswordInputField").GetComponent<InputField>();
-			
+
 			overallApplicationSettingsText = GameObject.Find("OverallApplicationSettingsText").GetComponent<Text>();
 			duelingOptionsText = GameObject.Find("DuelingOptionsText").GetComponent<Text>();
 			AIOptionsText = GameObject.Find("AIOptionsText").GetComponent<Text>();
@@ -304,7 +333,9 @@ public class OptionsScript : MonoBehaviour
 			passwordText = GameObject.Find("PasswordText").GetComponent<Text>();
 			moreOptions = GameObject.Find("MoreOptionsButton").GetComponent<Button>();
 			hostNow = GameObject.Find("HostNowButton").GetComponent<Button>();
-			
+			joinNow = GameObject.Find("JoinNowButton").GetComponent<Button>();
+			saveButton = GameObject.Find("SaveOptionsButton").GetComponent<Button>();
+
 			backOptionsButton = GameObject.Find("BackOptionsButton").GetComponent<Button>();
 			brightnessSlider = GameObject.Find("BrightnessSlider").GetComponent<Slider>();
 			musicSlider = GameObject.Find("MusicSlider").GetComponent<Slider>();
@@ -321,94 +352,193 @@ public class OptionsScript : MonoBehaviour
 			showDebugToggle = GameObject.Find("ShowDebugToggle").GetComponent<Toggle>();
 			showFPSToggle = GameObject.Find("ShowFPSToggle").GetComponent<Toggle>();
 			showLinesToggle = GameObject.Find("ShowLinesToggle").GetComponent<Toggle>();
-			
+
 			brightnessText = GameObject.Find("BrightnessText").GetComponent<Text>();
 			musicText = GameObject.Find("MusicText").GetComponent<Text>();
 			soundEffectsText = GameObject.Find("SoundEffectsText").GetComponent<Text>();
 			cameraSensitivityText = GameObject.Find("CameraSensitivityText").GetComponent<Text>();
 			deckFileExtensionText = GameObject.Find("DeckFileExtensionText").GetComponent<Text>();
-			
-			//Set the values after finding the option compoents (with default values or from file)
-			computerVersionToggle.isOn = computerVersion;
-			hololensVersionToggle.isOn = hololensVersion;
-			hologramStageVersionToggle.isOn = hologramStageVersion;
-			lifePointsInputField.text = "" + lifePoints;
-			timeLimitInputField.text = "" + timeLimit;
-			startingHandInputField.text = "" + startingHand;
-			cardsPerDrawInputField.text = "" + cardsPerDraw;
-			tcgOcgToggle.isOn = tcgOcg;
-			tcgToggle.isOn = tcg;
-			ocgToggle.isOn = ocg;
-			unspecifiedToggle.isOn = unspecified;
-			animeToggle.isOn = anime;
-			turboDuelToggle.isOn = turboDuel;
-			singleDuelToggle.isOn = singleDuel;
-			matchToggle.isOn = match;
-			tagDuelToggle.isOn = tagDuel;
-			useObsoleteRulingsToggle.isOn = useObsoleteRulings;
-			dontCheckDeckToggle.isOn = dontCheckDeck;
-			doNotShuffleDeckToggle.isOn = doNotShuffleDeck;
-			manualDuelingToggle.isOn = manualDueling;
-			AIDeckDefaultSelectionInputField.text = AIDeckDefaultSelection;
-			aggresiveToggle.isOn = aggresive;
-			stallToggle.isOn = stall;
-			defensiveToggle.isOn = defensive;
-			dynamicToggle.isOn = dynamic;
-			randomToggle.isOn = random;
-			impulseToggle.isOn = impulse;
-			cheatingAIToggle.isOn = cheatingAI;
-			nicknameInputField.text = nickname;
-			serverInputField.text = server;
-			passwordInputField.text = password;
-			
-			brightnessSlider.value = brightness;
-			musicSlider.value = music;
-			soundEffectsSlider.value = soundEffects;
-			cameraSensitivitySlider.value = cameraSensitivity;
-			deckExtensionInputField.text = deckExtension;
-			autoCardPlacementToggle.isOn = autoCardPlacement;
-			randomCardPlacementToggle.isOn = randomCardPlacement;
-			muteOpponentToggle.isOn = muteOpponent;
-			muteSpectatorsToggle.isOn = muteSpectators;
-			autoChainOrderToggle.isOn = autoChainOrder;
-			noDelayForChainToggle.isOn = noDelayForChain;
-			askToSaveReplayToggle.isOn = askToSaveReplay;
-			showDebugToggle.isOn = showDebug;
-			showFPSToggle.isOn = showFPS;
-			showLinesToggle.isOn = showLines;
-			
-			//Turn off unneeded options
-			backOptionsButton.gameObject.SetActive(false);
-			brightnessSlider.gameObject.SetActive(false);
-			musicSlider.gameObject.SetActive(false);
-			soundEffectsSlider.gameObject.SetActive(false);
-			cameraSensitivitySlider.gameObject.SetActive(false);
-			deckExtensionInputField.gameObject.SetActive(false);
-			autoCardPlacementToggle.gameObject.SetActive(false);
-			randomCardPlacementToggle.gameObject.SetActive(false);
-			muteOpponentToggle.gameObject.SetActive(false);
-			muteSpectatorsToggle.gameObject.SetActive(false);
-			autoChainOrderToggle.gameObject.SetActive(false);
-			noDelayForChainToggle.gameObject.SetActive(false);
-			askToSaveReplayToggle.gameObject.SetActive(false);
-			showDebugToggle.gameObject.SetActive(false);
-			showFPSToggle.gameObject.SetActive(false);
-			showLinesToggle.gameObject.SetActive(false);
-			
-			brightnessText.gameObject.SetActive(false);
-			musicText.gameObject.SetActive(false);
-			soundEffectsText.gameObject.SetActive(false);
-			cameraSensitivityText.gameObject.SetActive(false);
-			deckFileExtensionText.gameObject.SetActive(false);
+//			autoCardPlacement = GameObject.Find("AutoCardPlacement").GetComponent<Toggle>();
+//			randomCardPlacement = GameObject.Find("RandomCardPlacement").GetComponent<Toggle>();
+//			muteOpponent = GameObject.Find("MuteOpponent").GetComponent<Toggle>();
+//			muteSpectators = GameObject.Find("MuteSpectators").GetComponent<Toggle>();
+//			autoChainOrder = GameObject.Find("AutoChainOrder").GetComponent<Toggle>();
+//			noDelayForChain = GameObject.Find("NoDelayForChain").GetComponent<Toggle>();
+//			askToSaveReplay = GameObject.Find("AskToSaveReplay").GetComponent<Toggle>();
+//			showDebug = GameObject.Find("ShowDebug").GetComponent<Toggle>();
+//			showFPS = GameObject.Find("ShowFPS").GetComponent<Toggle>();
+//			showLines = GameObject.Find("ShowLines").GetComponent<Toggle>();
 		}
 	}
-	
-	public void ExitOptions()
+
+	public void TurnOnEverything()
 	{
-		//Application.LoadLevel("MainMenu");
-		SceneManager.LoadScene("MainMenu");
+		//Turn on all the first page options
+		computerVersionToggle.gameObject.SetActive(true);
+		hololensVersionToggle.gameObject.SetActive(true);
+		hologramStageVersionToggle.gameObject.SetActive(true);
+		lifePointsInputField.gameObject.SetActive(true);
+		timeLimitInputField.gameObject.SetActive(true);
+		startingHandInputField.gameObject.SetActive(true);
+		cardsPerDrawInputField.gameObject.SetActive(true);
+		tcgOcgToggle.gameObject.SetActive(true);
+		tcgToggle.gameObject.SetActive(true);
+		ocgToggle.gameObject.SetActive(true);
+		unspecifiedToggle.gameObject.SetActive(true);
+		animeToggle.gameObject.SetActive(true);
+		turboDuelToggle.gameObject.SetActive(true);
+		singleDuelToggle.gameObject.SetActive(true);
+		matchToggle.gameObject.SetActive(true);
+		tagDuelToggle.gameObject.SetActive(true);
+		useObsoleteRulingsToggle.gameObject.SetActive(true);
+		dontCheckDeckToggle.gameObject.SetActive(true);
+		doNotShuffleDeckToggle.gameObject.SetActive(true);
+		manualDuelingToggle.gameObject.SetActive(true);
+		AIDeckDefaultSelectionInputField.gameObject.SetActive(true);
+		aggresiveToggle.gameObject.SetActive(true);
+		stallToggle.gameObject.SetActive(true);
+		defensiveToggle.gameObject.SetActive(true);
+		dynamicToggle.gameObject.SetActive(true);
+		randomToggle.gameObject.SetActive(true);
+		impulseToggle.gameObject.SetActive(true);
+		cheatingAIToggle.gameObject.SetActive(true);
+		nicknameInputField.gameObject.SetActive(true);
+		serverInputField.gameObject.SetActive(true);
+		passwordInputField.gameObject.SetActive(true);
+
+		overallApplicationSettingsText.gameObject.SetActive(true);
+		duelingOptionsText.gameObject.SetActive(true);
+		AIOptionsText.gameObject.SetActive(true);
+		multiplayerOptionsText.gameObject.SetActive(true);
+		lifePointsText.gameObject.SetActive(true);
+		timeLimitText.gameObject.SetActive(true);
+		startingHandText.gameObject.SetActive(true);
+		cardsPerDrawText.gameObject.SetActive(true);
+		duelModeText.gameObject.SetActive(true);
+		allowedCardsText.gameObject.SetActive(true);
+		AIDeckDefaultSelectionText.gameObject.SetActive(true);
+		AIBehaviorText.gameObject.SetActive(true);
+		nicknameText.gameObject.SetActive(true);
+		serverText.gameObject.SetActive(true);
+		passwordText.gameObject.SetActive(true);
+		passwordText.enabled = true;
+		moreOptions.gameObject.SetActive(true);
+		hostNow.gameObject.SetActive(true);
+		saveButton.gameObject.SetActive(true);
+
+		//Turn on all the next page options
+		backOptionsButton.gameObject.SetActive(true);
+		brightnessSlider.gameObject.SetActive(true);
+		musicSlider.gameObject.SetActive(true);
+		soundEffectsSlider.gameObject.SetActive(true);
+		cameraSensitivitySlider.gameObject.SetActive(true);
+		deckExtensionInputField.gameObject.SetActive(true);
+		autoCardPlacementToggle.gameObject.SetActive(true);
+		randomCardPlacementToggle.gameObject.SetActive(true);
+		muteOpponentToggle.gameObject.SetActive(true);
+		muteSpectatorsToggle.gameObject.SetActive(true);
+		autoChainOrderToggle.gameObject.SetActive(true);
+		noDelayForChainToggle.gameObject.SetActive(true);
+		askToSaveReplayToggle.gameObject.SetActive(true);
+		showDebugToggle.gameObject.SetActive(true);
+		showFPSToggle.gameObject.SetActive(true);
+		showLinesToggle.gameObject.SetActive(true);
+
+		brightnessText.gameObject.SetActive(true);
+		musicText.gameObject.SetActive(true);
+		soundEffectsText.gameObject.SetActive(true);
+		cameraSensitivityText.gameObject.SetActive(true);
+		deckFileExtensionText.gameObject.SetActive(true);
 	}
-	
+
+	public void TurnOffUneededObjects()
+	{
+		//Turn off unneeded options
+		backOptionsButton.gameObject.SetActive(false);
+		brightnessSlider.gameObject.SetActive(false);
+		musicSlider.gameObject.SetActive(false);
+		soundEffectsSlider.gameObject.SetActive(false);
+		cameraSensitivitySlider.gameObject.SetActive(false);
+		deckExtensionInputField.gameObject.SetActive(false);
+		autoCardPlacementToggle.gameObject.SetActive(false);
+		randomCardPlacementToggle.gameObject.SetActive(false);
+		muteOpponentToggle.gameObject.SetActive(false);
+		muteSpectatorsToggle.gameObject.SetActive(false);
+		autoChainOrderToggle.gameObject.SetActive(false);
+		noDelayForChainToggle.gameObject.SetActive(false);
+		askToSaveReplayToggle.gameObject.SetActive(false);
+		showDebugToggle.gameObject.SetActive(false);
+		showFPSToggle.gameObject.SetActive(false);
+		showLinesToggle.gameObject.SetActive(false);
+
+		brightnessText.gameObject.SetActive(false);
+		musicText.gameObject.SetActive(false);
+		soundEffectsText.gameObject.SetActive(false);
+		cameraSensitivityText.gameObject.SetActive(false);
+		deckFileExtensionText.gameObject.SetActive(false);
+	}
+
+	public void SetAllOptionValues()
+	{
+		//Set the values after finding the option compoents (with default values or from file)
+		computerVersionToggle.isOn = computerVersion;
+		hololensVersionToggle.isOn = hololensVersion;
+		hologramStageVersionToggle.isOn = hologramStageVersion;
+		lifePointsInputField.text = "" + lifePoints;
+		timeLimitInputField.text = "" + timeLimit;
+		startingHandInputField.text = "" + startingHand;
+		cardsPerDrawInputField.text = "" + cardsPerDraw;
+		tcgOcgToggle.isOn = tcgOcg;
+		tcgToggle.isOn = tcg;
+		ocgToggle.isOn = ocg;
+		unspecifiedToggle.isOn = unspecified;
+		animeToggle.isOn = anime;
+		turboDuelToggle.isOn = turboDuel;
+		singleDuelToggle.isOn = singleDuel;
+		matchToggle.isOn = match;
+		tagDuelToggle.isOn = tagDuel;
+		useObsoleteRulingsToggle.isOn = useObsoleteRulings;
+		dontCheckDeckToggle.isOn = dontCheckDeck;
+		doNotShuffleDeckToggle.isOn = doNotShuffleDeck;
+		manualDuelingToggle.isOn = manualDueling;
+		AIDeckDefaultSelectionInputField.text = AIDeckDefaultSelection;
+		aggresiveToggle.isOn = aggresive;
+		stallToggle.isOn = stall;
+		defensiveToggle.isOn = defensive;
+		dynamicToggle.isOn = dynamic;
+		randomToggle.isOn = random;
+		impulseToggle.isOn = impulse;
+		cheatingAIToggle.isOn = cheatingAI;
+		nicknameInputField.text = nickname;
+		serverInputField.text = server;
+		passwordInputField.text = password;
+
+		brightnessSlider.value = brightness;
+		musicSlider.value = music;
+		soundEffectsSlider.value = soundEffects;
+		cameraSensitivitySlider.value = cameraSensitivity;
+		deckExtensionInputField.text = deckExtension;
+		autoCardPlacementToggle.isOn = autoCardPlacement;
+		randomCardPlacementToggle.isOn = randomCardPlacement;
+		muteOpponentToggle.isOn = muteOpponent;
+		muteSpectatorsToggle.isOn = muteSpectators;
+		autoChainOrderToggle.isOn = autoChainOrder;
+		noDelayForChainToggle.isOn = noDelayForChain;
+		askToSaveReplayToggle.isOn = askToSaveReplay;
+		showDebugToggle.isOn = showDebug;
+		showFPSToggle.isOn = showFPS;
+		showLinesToggle.isOn = showLines;
+	}
+
+	public void FixButtons()
+	{
+		moreOptions.onClick.AddListener(delegate {NextPage();});
+		backOptionsButton.onClick.AddListener(delegate {PreviousPage();});
+		saveButton.onClick.AddListener(delegate {SaveOptions();});
+		hostNow.onClick.AddListener(delegate {HostGame();});
+		joinNow.onClick.AddListener(delegate {JoinGame();});
+	}
+
 	public void NextPage()
 	{
 		//Turn off all the current page options
@@ -443,6 +573,7 @@ public class OptionsScript : MonoBehaviour
 		nicknameInputField.gameObject.SetActive(false);
 		serverInputField.gameObject.SetActive(false);
 		passwordInputField.gameObject.SetActive(false);
+		passwordText.gameObject.SetActive(false);
 		
 		overallApplicationSettingsText.gameObject.SetActive(false);
 		duelingOptionsText.gameObject.SetActive(false);
@@ -459,9 +590,9 @@ public class OptionsScript : MonoBehaviour
 		nicknameText.gameObject.SetActive(false);
 		serverText.gameObject.SetActive(false);
 		passwordText.gameObject.SetActive(false);
-		passwordText.enabled = false;
 		moreOptions.gameObject.SetActive(false);
 		hostNow.gameObject.SetActive(false);
+		joinNow.gameObject.SetActive(false);
 		
 		//Turn on all the next page options
 		backOptionsButton.gameObject.SetActive(true);
@@ -562,9 +693,9 @@ public class OptionsScript : MonoBehaviour
 		nicknameText.gameObject.SetActive(true);
 		serverText.gameObject.SetActive(true);
 		passwordText.gameObject.SetActive(true);
-		passwordText.enabled = true;
 		moreOptions.gameObject.SetActive(true);
 		hostNow.gameObject.SetActive(true);
+		joinNow.gameObject.SetActive(true);
 	}
 	
 	public void SaveOptions()
@@ -603,7 +734,7 @@ public class OptionsScript : MonoBehaviour
 						"Cheating AI: " + cheatingAI + "\n" +
 						"Nickname: " + nickname + "\n" +
 						"Server: " + server + "\n" +
-						"Password: " + password + "\n" +
+						"Password: " + password + "\n\n" +
 						
 						"Brightness: " + brightness + "\n" +
 						"Music: " + music + "\n" +
@@ -1122,5 +1253,15 @@ public class OptionsScript : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public void HostGame()
+	{
+		//Create an internet/LAN connection to this client (make this client a server)
+	}
+
+	public void JoinGame()
+	{
+		//Create an internet/LAN connection from this client to a server (join a server)
 	}
 }
