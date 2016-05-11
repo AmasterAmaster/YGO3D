@@ -1648,6 +1648,9 @@ public class MainGameScript : MonoBehaviour
 					//Wrong card, get rid of the menu (prevents cheating)
 					mouseHit.collider.gameObject.transform.parent.GetComponent<ContextMenuScript>().DestroyMenu();
 				}
+
+				//Reset the collisions
+				ResetCollisions();
 			}
 			//Else, If it is the overview plane...
 			else if(mouseHit.collider.gameObject.name == "OverviewP1" && Input.GetButtonDown("Fire1") && player1Turn && !movingSummonCard && !movingBattleChangeCard && !targetingMode)
@@ -2065,7 +2068,7 @@ public class MainGameScript : MonoBehaviour
 				//Hide the "Show hand" button
 				showHandP2.SetActive(false);
 				
-				//Turn on colliders
+				//Turn on collisions
 				for(int i = 0; i < player2.cardsInHand.Length && player2.cardsInHand[i] != null; i++)
 				{
 					player2.cardsInHand[i].gameObject.transform.GetChild(0).gameObject.GetComponent<MeshCollider>().enabled = true;
@@ -2091,7 +2094,7 @@ public class MainGameScript : MonoBehaviour
 				//Hide the "Hide hand" button
 				hideHandP2.SetActive(false);
 				
-				//Turn off the colliders
+				//Turn off collisions
 				for(int i = 0; i < player2.cardsInHand.Length && player2.cardsInHand[i] != null; i++)
 				{
 					player2.cardsInHand[i].gameObject.transform.GetChild(0).gameObject.GetComponent<MeshCollider>().enabled = false;
@@ -2173,6 +2176,9 @@ public class MainGameScript : MonoBehaviour
 					//Wrong card, get rid of the menu (prevents cheating)
 					mouseHit.collider.gameObject.transform.parent.GetComponent<ContextMenuScript>().DestroyMenu();
 				}
+
+				//Reset the collisions
+				ResetCollisions();
 			}
 			//Else, If it is the overview plane...
 			if(mouseHit.collider.gameObject.name == "OverviewP2" && Input.GetButtonDown("Fire1") && player2Turn && !movingSummonCard && !movingBattleChangeCard && !targetingMode)
@@ -3691,5 +3697,36 @@ public class MainGameScript : MonoBehaviour
 		string description = selectedCard.GetComponent<Card>().GetDescription();
 			
 		return "Description: " + description;
+	}
+
+	public void ResetCollisions()
+	{
+		//Turn off collisions (player 1)
+		for(int i = 0; i < player1.cardsInHand.Length && player1.cardsInHand[i] != null; i++)
+		{
+			player1.cardsInHand[i].gameObject.transform.GetChild(0).gameObject.GetComponent<MeshCollider>().enabled = false;
+			player1.cardsInHand[i].gameObject.transform.GetChild(1).gameObject.GetComponent<MeshCollider>().enabled = false;
+		}
+
+		//Turn on collisions (player 1)
+		for(int i = 0; i < player1.cardsInHand.Length && player1.cardsInHand[i] != null; i++)
+		{
+			player1.cardsInHand[i].gameObject.transform.GetChild(0).gameObject.GetComponent<MeshCollider>().enabled = true;
+			player1.cardsInHand[i].gameObject.transform.GetChild(1).gameObject.GetComponent<MeshCollider>().enabled = true;
+		}
+
+		//Turn off collisions (player 2)
+		for(int i = 0; i < player2.cardsInHand.Length && player2.cardsInHand[i] != null; i++)
+		{
+			player2.cardsInHand[i].gameObject.transform.GetChild(0).gameObject.GetComponent<MeshCollider>().enabled = false;
+			player2.cardsInHand[i].gameObject.transform.GetChild(1).gameObject.GetComponent<MeshCollider>().enabled = false;
+		}
+
+		//Turn on collisions (player 2)
+		for(int i = 0; i < player2.cardsInHand.Length && player2.cardsInHand[i] != null; i++)
+		{
+			player2.cardsInHand[i].gameObject.transform.GetChild(0).gameObject.GetComponent<MeshCollider>().enabled = true;
+			player2.cardsInHand[i].gameObject.transform.GetChild(1).gameObject.GetComponent<MeshCollider>().enabled = true;
+		}
 	}
 }

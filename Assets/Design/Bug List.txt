@@ -1,8 +1,8 @@
 Game-Breaking (A-Bugs):
 
 Major (B-Bugs):
+- Option menu features are not implemented (Dummy Buttons)
 
 Minor (C-Bugs):
-- Context Menu does not open multiple times when clicking each card after another. (Quick Fix: Hide and show the hand to reset the context menus)
 
 Would be nice to add (D-Bugs):
