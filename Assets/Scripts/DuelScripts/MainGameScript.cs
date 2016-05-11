@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class MainGameScript : MonoBehaviour
 {
@@ -415,6 +416,10 @@ public class MainGameScript : MonoBehaviour
 	//-------------------------------------------------------------------------STARTUP-----------------------------------------------------------------------------------------------
 	void Start()
 	{
+		//Make sure that both players are active
+		player1.gameObject.SetActive(true);
+		player2.gameObject.SetActive(true);
+
 		//Making sure that both life points are set to 8000
 		player1.SetCurrentLifePoints(startingLifePointCount);
 		player2.SetCurrentLifePoints(startingLifePointCount);
@@ -2639,6 +2644,7 @@ public class MainGameScript : MonoBehaviour
 			cardClone.layer = 8;
 			cardClone.AddComponent<Rigidbody>();
 			cardClone.GetComponent<Rigidbody>().isKinematic = true;
+			cardClone.GetComponent<NetworkTransform>();
 			
 			GameObject cardCloneFront = cardClone.transform.GetChild(0).gameObject;
 			cardCloneFront.GetComponent<Renderer>().material = myNewMaterialFront;
@@ -2679,6 +2685,7 @@ public class MainGameScript : MonoBehaviour
 				cardClone.layer = 8;
 				cardClone.AddComponent<Rigidbody>();
 				cardClone.GetComponent<Rigidbody>().isKinematic = true;
+				cardClone.GetComponent<NetworkTransform>();
 				
 				GameObject cardCloneFront = cardClone.transform.GetChild(0).gameObject;
 				cardCloneFront.GetComponent<Renderer>().material = myNewMaterialFront;
@@ -2716,6 +2723,7 @@ public class MainGameScript : MonoBehaviour
 			cardClone.layer = 15;
 			cardClone.AddComponent<Rigidbody>();
 			cardClone.GetComponent<Rigidbody>().isKinematic = true;
+			cardClone.GetComponent<NetworkTransform>();
 			
 			GameObject cardCloneFront = cardClone.transform.GetChild(0).gameObject;
 			cardCloneFront.GetComponent<Renderer>().material = myNewMaterialFront;
@@ -2756,6 +2764,7 @@ public class MainGameScript : MonoBehaviour
 				cardClone.layer = 15;
 				cardClone.AddComponent<Rigidbody>();
 				cardClone.GetComponent<Rigidbody>().isKinematic = true;
+				cardClone.GetComponent<NetworkTransform>();
 				
 				GameObject cardCloneFront = cardClone.transform.GetChild(0).gameObject;
 				cardCloneFront.GetComponent<Renderer>().material = myNewMaterialFront;
