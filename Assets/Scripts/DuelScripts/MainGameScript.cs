@@ -2635,8 +2635,12 @@ public class MainGameScript : MonoBehaviour
 		//Loop for each of player1's cards
 		for(int i = 0; i < currentDeck.deck.Length; i++)
 		{
-			Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
-			Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+			//Save these materials for testing
+			//Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
+			//Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+
+			Material myNewMaterialFront = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
+			Material myNewMaterialBack = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
 			
 			GameObject cardClone = (GameObject)Instantiate(card, new Vector3(currentDeck.transform.position.x, currentDeck.transform.position.y + (i * globalIncrement), currentDeck.transform.position.z), Quaternion.Euler(270, 0, 0));
 			cardClone.name = "P1: " + i + ": " + currentDeck.deck[i].cardName;
@@ -2676,8 +2680,12 @@ public class MainGameScript : MonoBehaviour
 			//If this card slot is not null
 			if(currentExtraDeck.extraDeck[i] != null)
 			{
-				Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
-				Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+				//Save these materials for testing
+				//Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
+				//Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+
+				Material myNewMaterialFront = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
+				Material myNewMaterialBack = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
 				
 				GameObject cardClone = (GameObject)Instantiate(card, new Vector3(currentExtraDeck.transform.position.x, currentExtraDeck.transform.position.y + (i * globalIncrement), currentExtraDeck.transform.position.z), Quaternion.Euler(270, 0, 0));
 				cardClone.name = "P1 Extra: " + i + ": " + currentExtraDeck.extraDeck[i].cardName;
@@ -2714,8 +2722,12 @@ public class MainGameScript : MonoBehaviour
 		//Loop for each of player2's cards
 		for(int i = 0; i < currentDeckAI.deck.Length; i++)
 		{
-			Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
-			Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+			//Save these materials for testing
+			//Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
+			//Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+
+			Material myNewMaterialFront = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
+			Material myNewMaterialBack = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
 			
 			GameObject cardClone = (GameObject)Instantiate(card, new Vector3(currentDeckAI.transform.position.x, currentDeckAI.transform.position.y + (i * globalIncrement), currentDeckAI.transform.position.z), Quaternion.Euler(270, 180, 0));
 			cardClone.name = "P2: " + i + ": " + currentDeckAI.deck[i].cardName;
@@ -2755,8 +2767,12 @@ public class MainGameScript : MonoBehaviour
 			//If this card slot is not null
 			if(currentExtraDeckAI.extraDeck[i] != null)
 			{
-				Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
-				Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+				//Save these materials for testing
+				//Material myNewMaterialFront = new Material(Shader.Find("Mobile/VertexLit"));
+				//Material myNewMaterialBack = new Material(Shader.Find("Mobile/VertexLit"));
+
+				Material myNewMaterialFront = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
+				Material myNewMaterialBack = new Material(Shader.Find("Mobile/Unlit (Supports Lightmap)"));
 				
 				GameObject cardClone = (GameObject)Instantiate(card, new Vector3(currentExtraDeckAI.transform.position.x, currentExtraDeckAI.transform.position.y + (i * globalIncrement), currentExtraDeckAI.transform.position.z), Quaternion.Euler(270, 180, 0));
 				cardClone.name = "P2 Extra: " + i + ": " + currentExtraDeckAI.extraDeck[i].cardName;
