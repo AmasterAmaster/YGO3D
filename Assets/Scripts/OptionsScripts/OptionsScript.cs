@@ -8,6 +8,10 @@ using System.Threading;
 
 public class OptionsScript : MonoBehaviour
 {
+	//Carryover variables
+	public bool startedMultiplayerGame = false;
+	public Deck currentDeck;
+
 	//Options variables (first page)
 	public Toggle computerVersionToggle;
 	public Toggle hololensVersionToggle;
@@ -73,6 +77,7 @@ public class OptionsScript : MonoBehaviour
 	public Button joinNow;
 	public Button backOptionsButton;
 	public Button saveButton;
+	public Button exitButton;
 	
 	//Options variables (second page)
 	public Slider brightnessSlider;
@@ -272,6 +277,10 @@ public class OptionsScript : MonoBehaviour
 
 	public void ExitOptions()
 	{
+		//Reset the do once action for options only
+		doOnce = true;
+
+		//Return to the main menu
 		SceneManager.LoadScene("MainMenu");
 	}
 
@@ -335,6 +344,7 @@ public class OptionsScript : MonoBehaviour
 			hostNow = GameObject.Find("HostNowButton").GetComponent<Button>();
 			joinNow = GameObject.Find("JoinNowButton").GetComponent<Button>();
 			saveButton = GameObject.Find("SaveOptionsButton").GetComponent<Button>();
+			exitButton = GameObject.Find("ExitButton").GetComponent<Button>();
 
 			backOptionsButton = GameObject.Find("BackOptionsButton").GetComponent<Button>();
 			brightnessSlider = GameObject.Find("BrightnessSlider").GetComponent<Slider>();
@@ -358,16 +368,6 @@ public class OptionsScript : MonoBehaviour
 			soundEffectsText = GameObject.Find("SoundEffectsText").GetComponent<Text>();
 			cameraSensitivityText = GameObject.Find("CameraSensitivityText").GetComponent<Text>();
 			deckFileExtensionText = GameObject.Find("DeckFileExtensionText").GetComponent<Text>();
-//			autoCardPlacement = GameObject.Find("AutoCardPlacement").GetComponent<Toggle>();
-//			randomCardPlacement = GameObject.Find("RandomCardPlacement").GetComponent<Toggle>();
-//			muteOpponent = GameObject.Find("MuteOpponent").GetComponent<Toggle>();
-//			muteSpectators = GameObject.Find("MuteSpectators").GetComponent<Toggle>();
-//			autoChainOrder = GameObject.Find("AutoChainOrder").GetComponent<Toggle>();
-//			noDelayForChain = GameObject.Find("NoDelayForChain").GetComponent<Toggle>();
-//			askToSaveReplay = GameObject.Find("AskToSaveReplay").GetComponent<Toggle>();
-//			showDebug = GameObject.Find("ShowDebug").GetComponent<Toggle>();
-//			showFPS = GameObject.Find("ShowFPS").GetComponent<Toggle>();
-//			showLines = GameObject.Find("ShowLines").GetComponent<Toggle>();
 		}
 	}
 
@@ -537,6 +537,7 @@ public class OptionsScript : MonoBehaviour
 		saveButton.onClick.AddListener(delegate {SaveOptions();});
 		hostNow.onClick.AddListener(delegate {HostGame();});
 		joinNow.onClick.AddListener(delegate {JoinGame();});
+		exitButton.onClick.AddListener(delegate {ExitOptions();});
 	}
 
 	public void NextPage()
@@ -1257,11 +1258,58 @@ public class OptionsScript : MonoBehaviour
 
 	public void HostGame()
 	{
+		//Check if the player has a valid deck selected
+		currentDeck = GameObject.Find("CurrentDeck").GetComponent<Deck>();
+
+		if(currentDeck.deck[0] == null)
+		{
+			//Deck is not selected
+//			notificationText.text = "Deck is not selected!";
+			return;
+		}
+		else if(currentDeck.deck[39] == null)
+		{
+			//Deck is not valid
+//			notificationText.text = "Deck is not valid!";
+			return;
+		}
+
 		//Create an internet/LAN connection to this client (make this client a server)
+
+		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
+		startedMultiplayerGame = true;
+
+		//Start the game
+		SceneManager.LoadScene("DuelField");
 	}
 
 	public void JoinGame()
 	{
+		//Check if the player has a valid deck selected
+		currentDeck = GameObject.Find("CurrentDeck").GetComponent<Deck>();
+
+		if(currentDeck.deck[0] == null)
+		{
+			//Deck is not selected
+//			notificationText.text = "Deck is not selected!";
+			return;
+		}
+		else if(currentDeck.deck[39] == null)
+		{
+			//Deck is not valid
+//			notificationText.text = "Deck is not valid!";
+			return;
+		}
+
 		//Create an internet/LAN connection from this client to a server (join a server)
+
+		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
+		startedMultiplayerGame = true;
+
+		//Join a game
+		SceneManager.LoadScene("DuelField");
+
+		//If the game is already started and both player spots filled...
+			//Enter Spectator Mode
 	}
 }

@@ -5,6 +5,20 @@ using UnityEngine.Networking;
 
 public class MainGameScript : MonoBehaviour
 {
+	//Game mode variables
+	[Tooltip("This mode means that this game is in the process of being debuged at the moment.")]
+	public bool DebugGame = false;
+	[Tooltip("This mode means that this game is fixed in a way to practice the game and mechanics (only Player1 gets this check).")]
+	public bool Situational = false;
+	[Tooltip("This mode means that this game is a normal multiplayer match (only Player1 and Player2 get this check).")]
+	public bool multiplayerGame = false;
+	[Tooltip("This mode means that this game is a normal AI match (only Player1 and AI (Player2) get this check).")]
+	public bool AIGame = false;
+	[Tooltip("This mode means that this game is being viewed by a spectator (Free roaming - Only other people get this check).")]
+	public bool SpectatingGame = false;
+
+	public OptionsScript options;
+
 	//Persistent variables
 	public Deck currentDeck;
 	public ExtraDeck currentExtraDeck;
@@ -416,6 +430,12 @@ public class MainGameScript : MonoBehaviour
 	//-------------------------------------------------------------------------STARTUP-----------------------------------------------------------------------------------------------
 	void Start()
 	{
+		//Find the OptionsManager
+		options = GameObject.Find("OptionsManager").GetComponent<OptionsScript>();
+
+		//Check the options if this is a multiplayer game
+		multiplayerGame = options.startedMultiplayerGame;
+
 		//Make sure that both players are active
 		player1.gameObject.SetActive(true);
 		player2.gameObject.SetActive(true);

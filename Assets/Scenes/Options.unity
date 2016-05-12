@@ -8321,6 +8321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275dde7d69792542bb5990e404104eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startedMultiplayerGame: 0
+  currentDeck: {fileID: 0}
   computerVersionToggle: {fileID: 1425381291}
   hololensVersionToggle: {fileID: 47209170}
   hologramStageVersionToggle: {fileID: 1771704509}
@@ -8372,6 +8374,7 @@ MonoBehaviour:
   joinNow: {fileID: 602404864}
   backOptionsButton: {fileID: 2133617173}
   saveButton: {fileID: 785046812}
+  exitButton: {fileID: 1554572036}
   brightnessSlider: {fileID: 2050214153}
   musicSlider: {fileID: 1991392789}
   soundEffectsSlider: {fileID: 800735484}
@@ -11402,9 +11405,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713320232}
-        m_MethodName: LoadLevel
-        m_Mode: 3
+      - m_Target: {fileID: 1116735596}
+        m_MethodName: ExitOptions
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

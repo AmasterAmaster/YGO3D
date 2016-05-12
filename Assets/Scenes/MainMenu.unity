@@ -167,6 +167,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 112835239}
   - 114: {fileID: 112835238}
+  - 114: {fileID: 112835240}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -251,6 +252,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &112835240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 112835237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 227461547, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  showGUI: 0
+  offsetX: 0
+  offsetY: 0
 --- !u!1 &130879971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,6 +2145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275dde7d69792542bb5990e404104eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startedMultiplayerGame: 0
+  currentDeck: {fileID: 0}
   computerVersionToggle: {fileID: 0}
   hololensVersionToggle: {fileID: 0}
   hologramStageVersionToggle: {fileID: 0}
@@ -2180,6 +2198,7 @@ MonoBehaviour:
   joinNow: {fileID: 0}
   backOptionsButton: {fileID: 0}
   saveButton: {fileID: 0}
+  exitButton: {fileID: 0}
   brightnessSlider: {fileID: 0}
   musicSlider: {fileID: 0}
   soundEffectsSlider: {fileID: 0}

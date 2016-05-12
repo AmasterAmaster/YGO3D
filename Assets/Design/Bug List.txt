@@ -4,5 +4,6 @@ Major (B-Bugs):
 - Option menu features are not implemented (Dummy Buttons)
 
 Minor (C-Bugs):
+- Makes an error when Options is exited. (something to do with the back button being NULL (start of the second page))
 
 Would be nice to add (D-Bugs):

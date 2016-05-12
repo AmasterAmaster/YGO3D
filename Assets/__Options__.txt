@@ -26,7 +26,7 @@ Dynamic: True
 Random: False
 Impulse: False
 Cheating AI: False
-Nickname: 
+Nickname: Amaster1
 Server: 
 Password: 
 
