@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class Player : MonoBehaviour
 {
@@ -14,32 +16,65 @@ public class Player : MonoBehaviour
 
 	public MainGameScript game;
 
-	void Start()
-	{
-		game = GameObject.Find("GameManager").GetComponent<MainGameScript>();
-
-		//Place the prefab clones in the proper spot
-		if(gameObject.name == "Player1(Clone)")
-		{
-			transform.position = game.player1.gameObject.transform.position;
-			transform.rotation = game.player1.gameObject.transform.rotation;
-			GetComponent<Player>().LP01 = GameObject.Find("P1LP01").GetComponent<TextMesh>();
-			GetComponent<Player>().LP02 = GameObject.Find("P1LP02").GetComponent<TextMesh>();
-		}
-
-		if(gameObject.name == "Player2(Clone)")
-		{
-			transform.position = game.player2.gameObject.transform.position;
-			transform.rotation = game.player2.gameObject.transform.rotation;
-			GetComponent<Player>().LP01 = GameObject.Find("P2LP01").GetComponent<TextMesh>();
-			GetComponent<Player>().LP02 = GameObject.Find("P2LP02").GetComponent<TextMesh>();
-		}
-	}
+	public bool doOnce = true;
 	
 	void Update()
 	{
+		if(doOnce)
+		{
+			FindObjectsAndSetup();
+			doOnce = false;
+		}
+
 		LP01.text = "LP: " + lifePoints;
 		LP02.text = "LP: " + lifePoints;
+	}
+
+	//Find all objects needed
+	public void FindObjectsAndSetup()
+	{
+		//If we are in the Duel Field...
+		if(SceneManager.GetActiveScene().buildIndex == 2)
+		{
+			game = GameObject.Find("GameManager").GetComponent<MainGameScript>();
+
+			//Place the prefab clones in the proper spot
+			if(gameObject.name == "Player1(Clone)")
+			{
+				transform.position = game.player1.gameObject.transform.position;
+				transform.rotation = game.player1.gameObject.transform.rotation;
+				GetComponent<Player>().LP01 = GameObject.Find("P1LP01").GetComponent<TextMesh>();
+				GetComponent<Player>().LP02 = GameObject.Find("P1LP02").GetComponent<TextMesh>();
+				//GetComponent<MouseLookScript>().enabled = true;
+
+				//Connect player 1 to all references
+				game.player1 = this;
+
+				//Remove old player 1
+				if(GameObject.Find("Player1") != null)
+				{
+					Destroy(GameObject.Find("Player1"));
+				}
+			}
+
+			if(gameObject.name == "Player2(Clone)")
+			{
+				transform.position = game.player2.gameObject.transform.position;
+				transform.rotation = game.player2.gameObject.transform.rotation;
+				GetComponent<Player>().LP01 = GameObject.Find("P2LP01").GetComponent<TextMesh>();
+				GetComponent<Player>().LP02 = GameObject.Find("P2LP02").GetComponent<TextMesh>();
+				//GetComponent<MouseLookScript>().enabled = true;
+
+				//Connect player 2 to all references
+				game.player2 = this;
+
+				//Remove old player 2
+				if(GameObject.Find("Player2") != null)
+				{
+					Destroy(GameObject.Find("Player2"));
+				}
+			}
+		}
 	}
 	
 	//----------LIFE POINTS---------------

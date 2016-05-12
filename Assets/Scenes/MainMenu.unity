@@ -195,12 +195,14 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 186314, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
+  m_PlayerPrefab: {fileID: 113648, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: MainMenu
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 186314, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
+  - {fileID: 113648, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -229,7 +231,7 @@ MonoBehaviour:
     m_ReactorMaximumReceivedMessages: 1024
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -2146,8 +2148,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startedMultiplayerGame: 0
+  hostingPlayer: 0
+  joiningPlayer: 0
+  spectatingPlayer: 1
   currentDeck: {fileID: 0}
   networkManager: {fileID: 0}
+  serverIp: 127.0.0.1
+  serverPort: 7777
   computerVersionToggle: {fileID: 0}
   hololensVersionToggle: {fileID: 0}
   hologramStageVersionToggle: {fileID: 0}

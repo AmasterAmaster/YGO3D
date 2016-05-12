@@ -9,10 +9,15 @@ using UnityEngine.Networking;
 
 public class OptionsScript : MonoBehaviour
 {
-	//Carryover variables
+	//Carryover variables (Netowrking)
 	public bool startedMultiplayerGame = false;
+	public bool hostingPlayer = false;
+	public bool joiningPlayer = false;
+	public bool spectatingPlayer = true;
 	public Deck currentDeck;
 	public NetworkManager networkManager;
+	public string serverIp = "127.0.0.1";
+	public int serverPort = 7777;
 
 	//Options variables (first page)
 	public Toggle computerVersionToggle;
@@ -1279,11 +1284,9 @@ public class OptionsScript : MonoBehaviour
 			return;
 		}
 
-		//Set this server and client to always be Player1
-		networkManager.playerPrefab = (GameObject)Resources.Load<GameObject>("Player1");
-
 		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
 		startedMultiplayerGame = true;
+		hostingPlayer = true;
 
 		//Create an internet/LAN connection to this client (make this client a server)
 		networkManager.StartHost();
@@ -1313,11 +1316,9 @@ public class OptionsScript : MonoBehaviour
 			return;
 		}
 
-		//Set this client to always be Player2
-		networkManager.playerPrefab = (GameObject)Resources.Load<GameObject>("Player2");
-
 		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
 		startedMultiplayerGame = true;
+		joiningPlayer = true;
 
 		//Create an internet/LAN connection from this client to a server (join a server)
 		networkManager.StartClient();
@@ -1327,5 +1328,6 @@ public class OptionsScript : MonoBehaviour
 
 		//If the game is already started and both player spots filled...
 			//Enter Spectator Mode
+			//spectatingPlayer = true;
 	}
 }

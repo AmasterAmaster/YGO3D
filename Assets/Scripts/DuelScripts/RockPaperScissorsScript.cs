@@ -182,7 +182,29 @@ public class RockPaperScissorsScript : MonoBehaviour
 					//Wait for the other player to connect
 					waitingForConnection = true;
 					waitOnce = false;
-					Debug.Log("Waiting for other player to connect...");
+
+					//Depending who is connected...
+					if(options.hostingPlayer)
+					{
+						NetworkServer.Spawn(Instantiate((GameObject)Resources.Load<GameObject>("Player1")));
+					}
+					else if(options.joiningPlayer)
+					{
+						//Attempt a connection
+						networkManager.client.Connect(options.serverIp, options.serverPort);
+
+						//Retry spawning player
+						if(networkManager.client.isConnected)
+							NetworkServer.Spawn(Instantiate((GameObject)Resources.Load<GameObject>("Player2")));
+					}
+					else if(options.spectatingPlayer)
+					{
+						//Attempt a connection
+						networkManager.client.Connect(options.serverIp, options.serverPort);
+
+						//if(networkManager.client.isConnected)
+							//NetworkServer.Spawn(Instantiate((GameObject)Resources.Load<GameObject>("Player3")));
+					}
 				}
 
 				if(waitingForConnection)
