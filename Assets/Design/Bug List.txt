@@ -1,5 +1,4 @@
 Game-Breaking (A-Bugs):
-- Player2(Clone) does not spawn
 - Server side cannot control it's own player
 
 Major (B-Bugs):
@@ -7,7 +6,6 @@ Major (B-Bugs):
 
 Minor (C-Bugs):
 - Makes an error when Options is exited. (something to do with the back button being NULL (start of the second page))
-- Makes an error when starting Multiplayer match, complaining about a textmesh being NULL.
 
 Would be nice to add (D-Bugs):
 - Would be nice to have a searching function to search cards by name instead by serial number.

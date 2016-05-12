@@ -1371,7 +1371,7 @@ MonoBehaviour:
   field: {fileID: 906822046}
   tans: {fileID: 385205013}
   activate: {fileID: 385205014}
-  rps: {fileID: 1347366336}
+  rps: {fileID: 690237266}
   cardPreviewPicture: {fileID: 0}
   card: {fileID: 2139105473}
   cardFront: {fileID: 0}
@@ -1774,7 +1774,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!114 &385205009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,6 +2460,97 @@ Transform:
   m_Children: []
   m_Father: {fileID: 842681528}
   m_RootOrder: 24
+--- !u!1 &690237264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 690237267}
+  - 114: {fileID: 690237266}
+  - 114: {fileID: 690237265}
+  m_Layer: 0
+  m_Name: RockPaperScissorsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &690237265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 690237264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &690237266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 690237264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35ea424b8e798cd42a0c9cfc22285b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 385205007}
+  options: {fileID: 0}
+  networkManager: {fileID: 0}
+  multiplayerGame: 0
+  waitingForConnection: 0
+  waitOnce: 1
+  player1: {fileID: 1849816932}
+  player2: {fileID: 1629887233}
+  p1DoneSelecting: 0
+  p2DoneSelecting: 0
+  player1SelectionMulti: 
+  player2SelectionMulti: 
+  rockPaperScissors: 1
+  rock: {fileID: 2800000, guid: 4c75b75eefd0464449a6c98361ebaf74, type: 3}
+  paper: {fileID: 2800000, guid: f04e893567812254fbaef84a789c87b6, type: 3}
+  scissors: {fileID: 2800000, guid: 2b8b4641891bad049b0f19b1384e2d16, type: 3}
+  player2Selection: 
+  playerChoice: 0
+  AIChoice: 0
+--- !u!4 &690237267
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 690237264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.440869, y: 15.826895, z: -18.971664}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &695020946
 GameObject:
   m_ObjectHideFlags: 0
@@ -3880,7 +3971,7 @@ Transform:
   - {fileID: 340538533}
   - {fileID: 5631788}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &930048767
 GameObject:
   m_ObjectHideFlags: 0
@@ -5189,57 +5280,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1344282769}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1347366335
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1347366337}
-  - 114: {fileID: 1347366336}
-  m_Layer: 0
-  m_Name: RockPaperScissorsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!114 &1347366336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1347366335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35ea424b8e798cd42a0c9cfc22285b32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  game: {fileID: 385205007}
-  options: {fileID: 0}
-  multiplayerGame: 0
-  waitingForConnection: 0
-  waitOnce: 1
-  rockPaperScissors: 1
-  rock: {fileID: 2800000, guid: 4c75b75eefd0464449a6c98361ebaf74, type: 3}
-  paper: {fileID: 2800000, guid: f04e893567812254fbaef84a789c87b6, type: 3}
-  scissors: {fileID: 2800000, guid: 2b8b4641891bad049b0f19b1384e2d16, type: 3}
-  player2Selection: 
-  playerChoice: 0
-  AIChoice: 0
---- !u!4 &1347366337
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1347366335}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
 --- !u!1 &1351832344
 GameObject:
   m_ObjectHideFlags: 0
@@ -6003,6 +6043,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1629887233 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 113648, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
+  m_PrefabInternal: {fileID: 1629887232}
 --- !u!1 &1666550636
 GameObject:
   m_ObjectHideFlags: 0
@@ -6375,6 +6419,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1849816932 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 186314, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
+  m_PrefabInternal: {fileID: 1849816931}
 --- !u!1 &1872604050
 GameObject:
   m_ObjectHideFlags: 0

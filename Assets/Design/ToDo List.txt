@@ -19,6 +19,7 @@ Not Importent/Implement later:
 - Music implementation (Sound effects and Background music)
 - AI Programming (for solo matches)
 - Search cards by name instead of serial number
+- Networking Lobby (Fully functional and can hold enough players for all game modes (1v2, 2v2, 1v1, etc...))
 
 Extras:
 - Art Design rework for menus and buttons (in all scenes)

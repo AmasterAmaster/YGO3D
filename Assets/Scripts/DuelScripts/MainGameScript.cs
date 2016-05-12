@@ -430,8 +430,13 @@ public class MainGameScript : MonoBehaviour
 	//-------------------------------------------------------------------------STARTUP-----------------------------------------------------------------------------------------------
 	void Start()
 	{
+		//Make sure rock-paper-scissors is on!
+		rps.gameObject.SetActive(true);
+
 		//Find the OptionsManager
 		options = GameObject.Find("OptionsManager").GetComponent<OptionsScript>();
+
+		//Load options here... (from options script)
 
 		//Check the options if this is a multiplayer game
 		multiplayerGame = options.startedMultiplayerGame;
@@ -527,8 +532,6 @@ public class MainGameScript : MonoBehaviour
 			
 			//Load Crosshair
 			crosshair = GameObject.Find("Crosshair").GetComponent<CrosshairScript>();
-			
-			//Load options here... (from options script)
 		}
 	}
 	

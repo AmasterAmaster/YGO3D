@@ -201,8 +201,9 @@ MonoBehaviour:
   m_OfflineScene: MainMenu
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 186314, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
   - {fileID: 113648, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
+  - {fileID: 186314, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
+  - {fileID: 115586, guid: 0b25f03ccef3e4a47bfdc11d0c0b4bad, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -2150,7 +2151,7 @@ MonoBehaviour:
   startedMultiplayerGame: 0
   hostingPlayer: 0
   joiningPlayer: 0
-  spectatingPlayer: 1
+  spectatingPlayer: 0
   currentDeck: {fileID: 0}
   networkManager: {fileID: 0}
   serverIp: 127.0.0.1

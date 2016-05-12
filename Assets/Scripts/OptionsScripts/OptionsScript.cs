@@ -13,7 +13,7 @@ public class OptionsScript : MonoBehaviour
 	public bool startedMultiplayerGame = false;
 	public bool hostingPlayer = false;
 	public bool joiningPlayer = false;
-	public bool spectatingPlayer = true;
+	public bool spectatingPlayer = false;
 	public Deck currentDeck;
 	public NetworkManager networkManager;
 	public string serverIp = "127.0.0.1";

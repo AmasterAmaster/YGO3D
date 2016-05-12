@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class RockPaperScissorsScript : MonoBehaviour
+public class RockPaperScissorsScript : NetworkBehaviour
 {
 	//Needed scripts and gameobjects and variables (networking and mechanics)
 	public MainGameScript game;
@@ -13,6 +13,15 @@ public class RockPaperScissorsScript : MonoBehaviour
 	public bool waitOnce = true;
 	public GameObject player1;
 	public GameObject player2;
+
+	[SyncVar]
+	public bool p1DoneSelecting = false;
+	[SyncVar]
+	public bool p2DoneSelecting = false;
+	[SyncVar]
+	public string player1SelectionMulti = "";
+	[SyncVar]
+	public string player2SelectionMulti = "";
 
 	//Rock-Paper-Scissors variables
 	public bool rockPaperScissors = true;
@@ -177,6 +186,7 @@ public class RockPaperScissorsScript : MonoBehaviour
 			//Else, this is a multiplayer game...
 			else
 			{
+				//Wait as we get everyone connected...
 				if(waitOnce)
 				{
 					//Wait for the other player to connect
@@ -195,7 +205,10 @@ public class RockPaperScissorsScript : MonoBehaviour
 
 						//Retry spawning player
 						if(networkManager.client.isConnected)
+						{
 							NetworkServer.Spawn(Instantiate((GameObject)Resources.Load<GameObject>("Player2")));
+							GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
+						}
 					}
 					else if(options.spectatingPlayer)
 					{
@@ -207,12 +220,109 @@ public class RockPaperScissorsScript : MonoBehaviour
 					}
 				}
 
+				//Checks if everyone is connected...
 				if(waitingForConnection)
 				{
 					//Once we detect a connection...
 					if(networkManager.IsClientConnected())
 					{
 						waitingForConnection = false;
+					}
+				}
+
+				//If both players are done selecting...
+				if(p1DoneSelecting && p2DoneSelecting)
+				{
+					//Compare both answers and pick a player to decide who goes first (Check to see who won rock-paper-scissors)
+					//Scissors VS Scissors
+					if(player1SelectionMulti == scissorsString && player2SelectionMulti == scissorsString)
+					{
+						//Start over
+						playerTurn = true;
+						p1DoneSelecting = false;
+						p2DoneSelecting = false;
+					}
+					//Scissors VS Rock
+					else if(player1SelectionMulti == scissorsString && player2SelectionMulti == rockString)
+					{
+						//Player 2 wins
+						if(options.joiningPlayer)
+						{
+							playerChoice = true;
+						}
+						playerTurn = false;
+						rockPaperScissors = false;
+					}
+					//Scissors VS Paper
+					else if(player1SelectionMulti == scissorsString && player2SelectionMulti == paperString)
+					{
+						//Player 1 wins
+						if(options.hostingPlayer)
+						{
+							playerChoice = true;
+						}
+						playerTurn = false;
+						rockPaperScissors = false;
+					}
+					//Rock VS Scissors
+					else if(player1SelectionMulti == rockString && player2SelectionMulti == scissorsString)
+					{
+						//Player 1 wins
+						if(options.hostingPlayer)
+						{
+							playerChoice = true;
+						}
+						playerTurn = false;
+						rockPaperScissors = false;
+					}
+					//Rock VS Rock
+					else if(player1SelectionMulti == rockString && player2SelectionMulti == rockString)
+					{
+						//Start over
+						playerTurn = true;
+						p1DoneSelecting = false;
+						p2DoneSelecting = false;
+					}
+					//Rock VS Paper
+					else if(player1SelectionMulti == rockString && player2SelectionMulti == paperString)
+					{
+						///Player 2 wins
+						if(options.joiningPlayer)
+						{
+							playerChoice = true;
+						}
+						playerTurn = false;
+						rockPaperScissors = false;
+					}
+					//Paper VS Scissors
+					else if(player1SelectionMulti == paperString && player2SelectionMulti == scissorsString)
+					{
+						///Player 2 wins
+						if(options.joiningPlayer)
+						{
+							playerChoice = true;
+						}
+						playerTurn = false;
+						rockPaperScissors = false;
+					}
+					//Paper VS Rock
+					else if(player1SelectionMulti == paperString && player2SelectionMulti == rockString)
+					{
+						//Player 1 wins
+						if(options.hostingPlayer)
+						{
+							playerChoice = true;
+						}
+						playerTurn = false;
+						rockPaperScissors = false;
+					}
+					//Paper VS Paper
+					else if(player1SelectionMulti == paperString && player2SelectionMulti == paperString)
+					{
+						//Start over
+						playerTurn = true;
+						p1DoneSelecting = false;
+						p2DoneSelecting = false;
 					}
 				}
 			}
@@ -224,9 +334,14 @@ public class RockPaperScissorsScript : MonoBehaviour
 		//Reference variables
 		int width = Screen.width;
 		int height = Screen.height;
-		
-		//If we are playing rock-paper-scissors (with AI)...
-		if(rockPaperScissors && playerTurn && !multiplayerGame)
+
+		//If you are a spectator...
+		if(options.spectatingPlayer)
+		{
+			//Nothing to draw!
+		}
+		//Else, if we are playing rock-paper-scissors (with AI)...
+		else if(rockPaperScissors && playerTurn && !multiplayerGame)
 		{
 			//Show buttons to click on
 			if(GUI.Button(new Rect(width / 2 - 275, height / 2 - 150, 150, 300), scissors))
@@ -256,51 +371,152 @@ public class RockPaperScissorsScript : MonoBehaviour
 		//Else, we are playing rock-paper-scissors (Multiplayer)...
 		else if(rockPaperScissors && playerTurn && multiplayerGame && !waitingForConnection)
 		{
-			//Show buttons to click on
-			if(GUI.Button(new Rect(width / 2 - 275, height / 2 - 150, 150, 300), scissors))
+			//If we are hosting AND the other player is connected...
+			if(options.hostingPlayer)
 			{
-				//Selected Scissors
-				player1Selection = scissorsString;
-				playerTurn = false;
-				AITurn = true;
-			}
+				//Show buttons to click on
+				if(GUI.Button(new Rect(width / 2 - 275, height / 2 - 150, 150, 300), scissors))
+				{
+					//Selected Scissors
+					player1SelectionMulti = scissorsString;
+					p1DoneSelecting = true;
+					playerTurn = false;
+					//RpcUpdateValues(player1SelectionMulti, p1DoneSelecting);
+				}
 
-			if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 150, 150, 300), rock))
-			{
-				//Selected Rock
-				player1Selection = rockString;
-				playerTurn = false;
-				AITurn = true;
-			}
+				if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 150, 150, 300), rock))
+				{
+					//Selected Rock
+					player1SelectionMulti = rockString;
+					p1DoneSelecting = true;
+					playerTurn = false;
+					//RpcUpdateValues(player1SelectionMulti, p1DoneSelecting);
+				}
 
-			if(GUI.Button(new Rect(width / 2 + 125, height / 2 - 150, 150, 300), paper))
+				if(GUI.Button(new Rect(width / 2 + 125, height / 2 - 150, 150, 300), paper))
+				{
+					//Selected Paper
+					player1SelectionMulti = paperString;
+					p1DoneSelecting = true;
+					playerTurn = false;
+					//RpcUpdateValues(player1SelectionMulti, p1DoneSelecting);
+				}
+			}
+			if(options.joiningPlayer)
 			{
-				//Selected Paper
-				player1Selection = paperString;
-				playerTurn = false;
-				AITurn = true;
+				//Show buttons to click on
+				if(GUI.Button(new Rect(width / 2 - 275, height / 2 - 150, 150, 300), scissors))
+				{
+					//Selected Scissors
+					player2SelectionMulti = scissorsString;
+					p2DoneSelecting = true;
+					playerTurn = false;
+					//CmdUpdateValues(player2SelectionMulti, p2DoneSelecting);
+				}
+
+				if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 150, 150, 300), rock))
+				{
+					//Selected Rock
+					player2SelectionMulti = rockString;
+					p2DoneSelecting = true;
+					playerTurn = false;
+					//CmdUpdateValues(player2SelectionMulti, p2DoneSelecting);
+				}
+
+				if(GUI.Button(new Rect(width / 2 + 125, height / 2 - 150, 150, 300), paper))
+				{
+					//Selected Paper
+					player2SelectionMulti = paperString;
+					p2DoneSelecting = true;
+					playerTurn = false;
+					//CmdUpdateValues(player2SelectionMulti, p2DoneSelecting);
+				}
 			}
 		}
 		
 		//If the player gets to choose if they want to go first or not...
 		if(playerChoice)
 		{
-			//Show buttons to click on
-			if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 75, 150, 50), "Go First"))
+			//If not a multiplayer game... do normal "who goes first"
+			if(!multiplayerGame)
 			{
-				//Player goes first
-				game.player1Turn = true;
-				playerChoice = false;
-				game.dueling = true;
+				//Show buttons to click on
+				if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 75, 150, 50), "Go First"))
+				{
+					//Player goes first
+					game.player1Turn = true;
+					playerChoice = false;
+					game.dueling = true;
+				}
+
+				if(GUI.Button(new Rect(width / 2 - 75, height / 2 + 25, 150, 50), "Go Second"))
+				{
+					//Player goes second
+					game.player2Turn = true;
+					playerChoice = false;
+					game.dueling = true;
+				}
 			}
-			
-			if(GUI.Button(new Rect(width / 2 - 75, height / 2 + 25, 150, 50), "Go Second"))
+			//Else, we are in a multiplayer game...
+			else
 			{
-				//Player goes second
-				game.player2Turn = true;
-				playerChoice = false;
-				game.dueling = true;
+				//If we are the hosting player...
+				if(options.hostingPlayer)
+				{
+					//Show buttons to click on
+					if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 75, 150, 50), "Go First"))
+					{
+						//Player 1 goes first
+						game.player1Turn = true;
+						playerChoice = false;
+						game.dueling = true;
+					}
+
+					if(GUI.Button(new Rect(width / 2 - 75, height / 2 + 25, 150, 50), "Go Second"))
+					{
+						//Player 2 goes second
+						game.player2Turn = true;
+						playerChoice = false;
+						game.dueling = true;
+					}
+				}
+				//Else, we are the joining player...
+				else if(options.joiningPlayer)
+				{
+					//Show buttons to click on
+					if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 75, 150, 50), "Go First"))
+					{
+						//Player 2 goes first
+						game.player2Turn = true;
+						playerChoice = false;
+						game.dueling = true;
+					}
+
+					if(GUI.Button(new Rect(width / 2 - 75, height / 2 + 25, 150, 50), "Go Second"))
+					{
+						//Player 1 goes second
+						game.player1Turn = true;
+						playerChoice = false;
+						game.dueling = true;
+					}
+				}
 			}
 		}
+	}
+
+	[Command]
+	public void CmdUpdateValues(string p2Selection, bool p2Done)
+	{
+		//Update the values of all varaibles needed
+		player2SelectionMulti = p2Selection;
+		p2DoneSelecting = p2Done;
+	}
+
+	[ClientRpc]
+	public void RpcUpdateValues(string p1Selection, bool p1Done)
+	{
+		//Update the values of all varaibles needed
+		player1SelectionMulti = p1Selection;
+		p1DoneSelecting = p1Done;
 	}
 }
