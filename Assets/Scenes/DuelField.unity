@@ -1257,6 +1257,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111a12cf7d1124b4292f1e5e0dc57af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugGame: 0
+  Situational: 0
+  multiplayerGame: 0
+  AIGame: 0
+  SpectatingGame: 0
+  options: {fileID: 0}
   currentDeck: {fileID: 0}
   currentExtraDeck: {fileID: 0}
   currentSideDeck: {fileID: 0}
@@ -5211,6 +5217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game: {fileID: 385205007}
+  options: {fileID: 0}
+  multiplayerGame: 0
+  waitingForConnection: 0
+  waitOnce: 1
   rockPaperScissors: 1
   rock: {fileID: 2800000, guid: 4c75b75eefd0464449a6c98361ebaf74, type: 3}
   paper: {fileID: 2800000, guid: f04e893567812254fbaef84a789c87b6, type: 3}
@@ -5993,62 +6003,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1629887233 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 113648, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
-  m_PrefabInternal: {fileID: 1629887232}
---- !u!114 &1629887234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1629887233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 209
-    i1: 218
-    i2: 34
-    i3: 10
-    i4: 15
-    i5: 41
-    i6: 80
-    i7: 4
-    i8: 155
-    i9: 1
-    i10: 237
-    i11: 132
-    i12: 234
-    i13: 76
-    i14: 6
-    i15: 199
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &1629887235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1629887233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 0
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!1 &1666550636
 GameObject:
   m_ObjectHideFlags: 0
@@ -6421,62 +6375,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1849816932 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 186314, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
-  m_PrefabInternal: {fileID: 1849816931}
---- !u!114 &1849816933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1849816932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 4
-    i1: 107
-    i2: 65
-    i3: 139
-    i4: 218
-    i5: 100
-    i6: 234
-    i7: 212
-    i8: 185
-    i9: 86
-    i10: 75
-    i11: 161
-    i12: 143
-    i13: 68
-    i14: 240
-    i15: 95
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &1849816934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1849816932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!1 &1872604050
 GameObject:
   m_ObjectHideFlags: 0

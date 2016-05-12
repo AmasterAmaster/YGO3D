@@ -14,6 +14,9 @@ GameObject:
   - 81: {fileID: 8163060}
   - 114: {fileID: 11431568}
   - 114: {fileID: 11452050}
+  - 114: {fileID: 11417608}
+  - 114: {fileID: 11477212}
+  - 114: {fileID: 11423340}
   m_Layer: 0
   m_Name: Player2
   m_TagString: MainCamera
@@ -81,6 +84,49 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113648}
   m_Enabled: 0
+--- !u!114 &11417608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 209
+    i1: 218
+    i2: 34
+    i3: 10
+    i4: 15
+    i5: 41
+    i6: 80
+    i7: 4
+    i8: 155
+    i9: 1
+    i10: 237
+    i11: 132
+    i12: 234
+    i13: 76
+    i14: 6
+    i15: 199
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &11423340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fdb7e7c1d051043be3d992704634f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11431568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,6 +222,26 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
+--- !u!114 &11477212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!124 &12413326
 Behaviour:
   m_ObjectHideFlags: 1

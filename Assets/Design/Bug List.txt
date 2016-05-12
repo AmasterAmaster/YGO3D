@@ -7,3 +7,4 @@ Minor (C-Bugs):
 - Makes an error when Options is exited. (something to do with the back button being NULL (start of the second page))
 
 Would be nice to add (D-Bugs):
+- Would be nice to have a searching function to search cards by name instead by serial number.

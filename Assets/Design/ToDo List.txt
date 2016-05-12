@@ -18,6 +18,7 @@ Not Importent/Implement later:
 - Models and Particle Effects for each card (playable and animated)
 - Music implementation (Sound effects and Background music)
 - AI Programming (for solo matches)
+- Search cards by name instead of serial number
 
 Extras:
 - Art Design rework for menus and buttons (in all scenes)

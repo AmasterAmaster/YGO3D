@@ -5,12 +5,14 @@ using System.IO;						//USE: File access
 using UnityEngine.SceneManagement;
 using System.Configuration;
 using System.Threading;
+using UnityEngine.Networking;
 
 public class OptionsScript : MonoBehaviour
 {
 	//Carryover variables
 	public bool startedMultiplayerGame = false;
 	public Deck currentDeck;
+	public NetworkManager networkManager;
 
 	//Options variables (first page)
 	public Toggle computerVersionToggle;
@@ -1258,6 +1260,9 @@ public class OptionsScript : MonoBehaviour
 
 	public void HostGame()
 	{
+		//Get the network manager
+		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+
 		//Check if the player has a valid deck selected
 		currentDeck = GameObject.Find("CurrentDeck").GetComponent<Deck>();
 
@@ -1275,6 +1280,7 @@ public class OptionsScript : MonoBehaviour
 		}
 
 		//Create an internet/LAN connection to this client (make this client a server)
+		networkManager.StartHost();
 
 		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
 		startedMultiplayerGame = true;
@@ -1285,6 +1291,9 @@ public class OptionsScript : MonoBehaviour
 
 	public void JoinGame()
 	{
+		//Get the network manager
+		networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+
 		//Check if the player has a valid deck selected
 		currentDeck = GameObject.Find("CurrentDeck").GetComponent<Deck>();
 
@@ -1302,6 +1311,7 @@ public class OptionsScript : MonoBehaviour
 		}
 
 		//Create an internet/LAN connection from this client to a server (join a server)
+		networkManager.StartClient();
 
 		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
 		startedMultiplayerGame = true;
