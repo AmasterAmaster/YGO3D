@@ -1279,11 +1279,14 @@ public class OptionsScript : MonoBehaviour
 			return;
 		}
 
-		//Create an internet/LAN connection to this client (make this client a server)
-		networkManager.StartHost();
+		//Set this server and client to always be Player1
+		networkManager.playerPrefab = (GameObject)Resources.Load<GameObject>("Player1");
 
 		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
 		startedMultiplayerGame = true;
+
+		//Create an internet/LAN connection to this client (make this client a server)
+		networkManager.StartHost();
 
 		//Start the game
 		SceneManager.LoadScene("DuelField");
@@ -1310,11 +1313,14 @@ public class OptionsScript : MonoBehaviour
 			return;
 		}
 
-		//Create an internet/LAN connection from this client to a server (join a server)
-		networkManager.StartClient();
+		//Set this client to always be Player2
+		networkManager.playerPrefab = (GameObject)Resources.Load<GameObject>("Player2");
 
 		//Let the GameManager know that this is a multiplayer game (and setup the game accordingly)
 		startedMultiplayerGame = true;
+
+		//Create an internet/LAN connection from this client to a server (join a server)
+		networkManager.StartClient();
 
 		//Join a game
 		SceneManager.LoadScene("DuelField");

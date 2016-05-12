@@ -11,6 +11,30 @@ public class Player : MonoBehaviour
 	
 	public TextMesh LP01;
 	public TextMesh LP02;
+
+	public MainGameScript game;
+
+	void Start()
+	{
+		game = GameObject.Find("GameManager").GetComponent<MainGameScript>();
+
+		//Place the prefab clones in the proper spot
+		if(gameObject.name == "Player1(Clone)")
+		{
+			transform.position = game.player1.gameObject.transform.position;
+			transform.rotation = game.player1.gameObject.transform.rotation;
+			GetComponent<Player>().LP01 = GameObject.Find("P1LP01").GetComponent<TextMesh>();
+			GetComponent<Player>().LP02 = GameObject.Find("P1LP02").GetComponent<TextMesh>();
+		}
+
+		if(gameObject.name == "Player2(Clone)")
+		{
+			transform.position = game.player2.gameObject.transform.position;
+			transform.rotation = game.player2.gameObject.transform.rotation;
+			GetComponent<Player>().LP01 = GameObject.Find("P2LP01").GetComponent<TextMesh>();
+			GetComponent<Player>().LP02 = GameObject.Find("P2LP02").GetComponent<TextMesh>();
+		}
+	}
 	
 	void Update()
 	{

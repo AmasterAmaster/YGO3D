@@ -4,13 +4,15 @@ using UnityEngine.Networking;
 
 public class RockPaperScissorsScript : MonoBehaviour
 {
-	//Needed scripts and gameobjects and variables
+	//Needed scripts and gameobjects and variables (networking and mechanics)
 	public MainGameScript game;
 	public OptionsScript options;
 	public NetworkManager networkManager;
 	public bool multiplayerGame = false;
 	public bool waitingForConnection = false;
 	public bool waitOnce = true;
+	public GameObject player1;
+	public GameObject player2;
 
 	//Rock-Paper-Scissors variables
 	public bool rockPaperScissors = true;

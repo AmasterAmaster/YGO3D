@@ -23,6 +23,7 @@ Not Importent/Implement later:
 Extras:
 - Art Design rework for menus and buttons (in all scenes)
 - Art Design rework for main duel field
+- Support ydk file format (problem on MAC OS)
 
 -----------------------------------------
 Working on:

@@ -199,7 +199,7 @@ MonoBehaviour:
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
   m_OfflineScene: MainMenu
-  m_OnlineScene: DuelField
+  m_OnlineScene: 
   m_SpawnPrefabs: []
   m_CustomConfig: 0
   m_MaxConnections: 4
@@ -2147,6 +2147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startedMultiplayerGame: 0
   currentDeck: {fileID: 0}
+  networkManager: {fileID: 0}
   computerVersionToggle: {fileID: 0}
   hololensVersionToggle: {fileID: 0}
   hologramStageVersionToggle: {fileID: 0}
