@@ -21,10 +21,24 @@ public class Player : NetworkBehaviour
 	//RockPaperScissors variables
 	public RockPaperScissorsScript rps;
 
+	//Deck variables
+	public Deck deck;
+	public SideDeck sideDeck;
+	public ExtraDeck extraDeck;
+
 	void Start()
 	{
+		//Find the rock-paper-scissor manager
 		if(GameObject.Find("RockPaperScissorsManager") != null)
 			rps = GameObject.Find("RockPaperScissorsManager").GetComponent<RockPaperScissorsScript>();
+
+		//Find THIS player's deck information (to grab later during the game)
+		if(GameObject.Find("CurrentDeck") != null)
+		{
+			deck = GameObject.Find("CurrentDeck").GetComponent<Deck>();
+			sideDeck = GameObject.Find("CurrentDeck").GetComponent<SideDeck>();
+			extraDeck = GameObject.Find("CurrentDeck").GetComponent<ExtraDeck>();
+		}
 	}
 	
 	void Update()
@@ -212,5 +226,24 @@ public class Player : NetworkBehaviour
 		rps.player2SelectionMulti = "";
 		rps.p2DoneSelecting = false;
 		rps.playerTurn = true;
+	}
+
+	//Deck information transfer functions below
+	[Command]
+	public void CmdGetHostDeck()
+	{
+		//Transfer all information in these big types (becuase we cant send components themselves)
+		game.currentDeckAI = deck;
+		game.currentExtraDeckAI = extraDeck;
+		game.currentSideDeckAI = sideDeck;
+	}
+
+	[ClientRpc]
+	public void RpcGetClientDeck()
+	{
+		//Transfer all information in these big types (becuase we cant send components themselves)
+		game.currentDeckAI = deck;
+		game.currentExtraDeckAI = extraDeck;
+		game.currentSideDeckAI = sideDeck;
 	}
 }

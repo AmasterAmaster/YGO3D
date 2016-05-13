@@ -456,6 +456,21 @@ public class MainGameScript : MonoBehaviour
 		currentDeckAI = GameObject.Find("AICurrentDeck").GetComponent<Deck>();
 		currentExtraDeckAI = GameObject.Find("AICurrentDeck").GetComponent<ExtraDeck>();
 		currentSideDeckAI = GameObject.Find("AICurrentDeck").GetComponent<SideDeck>();
+
+		//If it is a multiplayer game...
+		if(multiplayerGame)
+		{
+			//Replace the AI deck with the other player's deck (by looping through all the cards from the other player)
+			if(options.hostingPlayer)
+			{
+				player2.RpcGetClientDeck();
+			}
+
+			if(options.joiningPlayer)
+			{
+				player1.CmdGetHostDeck();
+			}
+		}
 		
 		//Set up the deck of cards to have the extra card properties included with the card game objects
 		if(currentDeck != null && currentExtraDeck != null && currentSideDeck != null && currentDeckAI != null && currentExtraDeckAI != null && currentSideDeckAI != null)

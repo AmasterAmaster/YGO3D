@@ -1,5 +1,7 @@
 Game-Breaking (A-Bugs):
 - Server side cannot control it's own player
+- Host is having problems getting client's deck. (Multiplayer)
+- Client is having problems getting both decks. (Multiplayer)
 
 Major (B-Bugs):
 - Option menu features are not implemented (Dummy Buttons)
