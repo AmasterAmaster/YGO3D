@@ -35,7 +35,7 @@ public class RockPaperScissorsScript : NetworkBehaviour
 	private string scissorsString = "Scissors";
 	private string player1Selection = "";
 	public string player2Selection = "";
-	private bool playerTurn = true;
+	public bool playerTurn = true;
 	private bool AITurn = false;
 	
 	//"Who goes first?" variables
@@ -241,6 +241,10 @@ public class RockPaperScissorsScript : NetworkBehaviour
 						playerTurn = true;
 						p1DoneSelecting = false;
 						p2DoneSelecting = false;
+						if(options.hostingPlayer)
+							game.player1.RpcResetRPS();
+						if(options.joiningPlayer)
+							game.player2.CmdResetRPS();
 					}
 					//Scissors VS Rock
 					else if(player1SelectionMulti == scissorsString && player2SelectionMulti == rockString)
@@ -282,6 +286,10 @@ public class RockPaperScissorsScript : NetworkBehaviour
 						playerTurn = true;
 						p1DoneSelecting = false;
 						p2DoneSelecting = false;
+						if(options.hostingPlayer)
+							game.player1.RpcResetRPS();
+						if(options.joiningPlayer)
+							game.player2.CmdResetRPS();
 					}
 					//Rock VS Paper
 					else if(player1SelectionMulti == rockString && player2SelectionMulti == paperString)
@@ -323,6 +331,10 @@ public class RockPaperScissorsScript : NetworkBehaviour
 						playerTurn = true;
 						p1DoneSelecting = false;
 						p2DoneSelecting = false;
+						if(options.hostingPlayer)
+							game.player1.RpcResetRPS();
+						if(options.joiningPlayer)
+							game.player2.CmdResetRPS();
 					}
 				}
 			}
@@ -381,7 +393,7 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player1SelectionMulti = scissorsString;
 					p1DoneSelecting = true;
 					playerTurn = false;
-					//RpcUpdateValues(player1SelectionMulti, p1DoneSelecting);
+					game.player1.RpcUpdateRPS(player1SelectionMulti, p1DoneSelecting);
 				}
 
 				if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 150, 150, 300), rock))
@@ -390,7 +402,7 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player1SelectionMulti = rockString;
 					p1DoneSelecting = true;
 					playerTurn = false;
-					//RpcUpdateValues(player1SelectionMulti, p1DoneSelecting);
+					game.player1.RpcUpdateRPS(player1SelectionMulti, p1DoneSelecting);
 				}
 
 				if(GUI.Button(new Rect(width / 2 + 125, height / 2 - 150, 150, 300), paper))
@@ -399,7 +411,7 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player1SelectionMulti = paperString;
 					p1DoneSelecting = true;
 					playerTurn = false;
-					//RpcUpdateValues(player1SelectionMulti, p1DoneSelecting);
+					game.player1.RpcUpdateRPS(player1SelectionMulti, p1DoneSelecting);
 				}
 			}
 			if(options.joiningPlayer)
@@ -411,7 +423,6 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player2SelectionMulti = scissorsString;
 					p2DoneSelecting = true;
 					playerTurn = false;
-					//UpdateValues(player2SelectionMulti, p2DoneSelecting);
 					game.player2.CmdUpdateRPS(player2SelectionMulti, p2DoneSelecting);
 				}
 
@@ -421,7 +432,6 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player2SelectionMulti = rockString;
 					p2DoneSelecting = true;
 					playerTurn = false;
-					//UpdateValues(player2SelectionMulti, p2DoneSelecting);
 					game.player2.CmdUpdateRPS(player2SelectionMulti, p2DoneSelecting);
 				}
 
@@ -431,7 +441,6 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player2SelectionMulti = paperString;
 					p2DoneSelecting = true;
 					playerTurn = false;
-					//UpdateValues(player2SelectionMulti, p2DoneSelecting);
 					game.player2.CmdUpdateRPS(player2SelectionMulti, p2DoneSelecting);
 				}
 			}
@@ -506,26 +515,4 @@ public class RockPaperScissorsScript : NetworkBehaviour
 			}
 		}
 	}
-
-//	[Client]
-//	public void UpdateValues(string p2Selection, bool p2Done)
-//	{
-//		CmdUpdateValues(p2Selection, p2Done);
-//	}
-//
-//	[Command]
-//	public void CmdUpdateValues(string p2Selection, bool p2Done)
-//	{
-//		//Update the values of all varaibles needed
-//		player2SelectionMulti = p2Selection;
-//		p2DoneSelecting = p2Done;
-//	}
-//
-//	[ClientRpc]
-//	public void RpcUpdateValues(string p1Selection, bool p1Done)
-//	{
-//		//Update the values of all varaibles needed
-//		player1SelectionMulti = p1Selection;
-//		p1DoneSelecting = p1Done;
-//	}
 }

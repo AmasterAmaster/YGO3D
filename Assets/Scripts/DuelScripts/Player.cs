@@ -176,10 +176,41 @@ public class Player : NetworkBehaviour
 	}
 
 	//----------Networking Functions only------------------
+	//Rock-Paper-Scissors functions below
 	[Command]
 	public void CmdUpdateRPS(string p2Selection, bool p2Done)
 	{
 		rps.player2SelectionMulti = p2Selection;
 		rps.p2DoneSelecting = p2Done;
+	}
+
+	[ClientRpc]
+	public void RpcUpdateRPS(string p1Selection, bool p1Done)
+	{
+		//Update the values of all varaibles needed
+		rps.player1SelectionMulti = p1Selection;
+		rps.p1DoneSelecting = p1Done;
+	}
+
+	[Command]
+	public void CmdResetRPS()
+	{
+		//Reset the values of all varaibles needed
+		rps.player1SelectionMulti = "";
+		rps.p1DoneSelecting = false;
+		rps.player2SelectionMulti = "";
+		rps.p2DoneSelecting = false;
+		rps.playerTurn = true;
+	}
+
+	[ClientRpc]
+	public void RpcResetRPS()
+	{
+		//Reset the values of all varaibles needed
+		rps.player1SelectionMulti = "";
+		rps.p1DoneSelecting = false;
+		rps.player2SelectionMulti = "";
+		rps.p2DoneSelecting = false;
+		rps.playerTurn = true;
 	}
 }

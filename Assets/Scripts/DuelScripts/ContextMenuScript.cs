@@ -61,10 +61,16 @@ public class ContextMenuScript : MonoBehaviour
 		attack = GameObject.Find("GameManager").GetComponent<AttackScript>();
 		tans = GameObject.Find("GameManager").GetComponent<TargetAndNotificationSystemScript>();
 		activate = GameObject.Find("GameManager").GetComponent<ActivateScript>();
-		
+
 		//Find the cameras
-		player1 = GameObject.Find("Player1").GetComponent<Player>();
-		player2 = GameObject.Find("Player2").GetComponent<Player>();
+		if(GameObject.Find("Player1") != null)
+			player1 = GameObject.Find("Player1").GetComponent<Player>();
+		else if(GameObject.Find("Player1(Clone)") != null)
+			player1 = GameObject.Find("Player1(Clone)").GetComponent<Player>();
+		if(GameObject.Find("Player2") != null)
+			player2 = GameObject.Find("Player2").GetComponent<Player>();
+		else if(GameObject.Find("Player2(Clone)") != null)
+			player2 = GameObject.Find("Player2(Clone)").GetComponent<Player>();
 		
 		//Load the menu textures
 		emptyTexture = (Texture)Resources.Load("EmptyButton", typeof(Texture));
