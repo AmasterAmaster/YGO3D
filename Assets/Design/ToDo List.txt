@@ -20,6 +20,14 @@ Not Importent/Implement later:
 - AI Programming (for solo matches)
 - Search cards by name instead of serial number
 - Networking Lobby (Fully functional and can hold enough players for all game modes (1v2, 2v2, 1v1, etc...))
+- Fully Functioning Replay System:
+	- Replays are saved as text files (for now)
+	- Have a control to turn the replay recoring on or off (off to save space, on to save memories)
+	- Start recording when match starts
+	- Have it recording mid match (match is already started, start recording)
+	- Have a thing where joining mid match, using the host's/server's current replay file to catch you up. All the while recording the mid match while catching up (always following the host's/server's ever chaning and updating replay file)
+	- Have a system that creates a replay as the game goes on, writing a file in coded symbols or text commands (such as NSum = Normal Summon, [P2 M: 55]A[P1 M: 45] = Player2's monster attacks Player1's monster).
+	- Have a button to re-watch old replays. (reading all the coded things in the file)
 
 Extras:
 - Art Design rework for menus and buttons (in all scenes)
@@ -29,3 +37,5 @@ Extras:
 -----------------------------------------
 Working on:
 - Networking (Person: Andrew)
+- Models and Particle Effects (Person: Kolrick)
+- Card effect scripts (Person: Andrew and Kolrick)

@@ -9,3 +9,4 @@ Minor (C-Bugs):
 
 Would be nice to add (D-Bugs):
 - Would be nice to have a searching function to search cards by name instead by serial number.
+- Would be nice to let the players know that both player's picked the same hand in (Rock-Paper-Scissors).
