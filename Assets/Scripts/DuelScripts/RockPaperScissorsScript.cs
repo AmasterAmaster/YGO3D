@@ -411,7 +411,8 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player2SelectionMulti = scissorsString;
 					p2DoneSelecting = true;
 					playerTurn = false;
-					//CmdUpdateValues(player2SelectionMulti, p2DoneSelecting);
+					//UpdateValues(player2SelectionMulti, p2DoneSelecting);
+					game.player2.CmdUpdateRPS(player2SelectionMulti, p2DoneSelecting);
 				}
 
 				if(GUI.Button(new Rect(width / 2 - 75, height / 2 - 150, 150, 300), rock))
@@ -420,7 +421,8 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player2SelectionMulti = rockString;
 					p2DoneSelecting = true;
 					playerTurn = false;
-					//CmdUpdateValues(player2SelectionMulti, p2DoneSelecting);
+					//UpdateValues(player2SelectionMulti, p2DoneSelecting);
+					game.player2.CmdUpdateRPS(player2SelectionMulti, p2DoneSelecting);
 				}
 
 				if(GUI.Button(new Rect(width / 2 + 125, height / 2 - 150, 150, 300), paper))
@@ -429,7 +431,8 @@ public class RockPaperScissorsScript : NetworkBehaviour
 					player2SelectionMulti = paperString;
 					p2DoneSelecting = true;
 					playerTurn = false;
-					//CmdUpdateValues(player2SelectionMulti, p2DoneSelecting);
+					//UpdateValues(player2SelectionMulti, p2DoneSelecting);
+					game.player2.CmdUpdateRPS(player2SelectionMulti, p2DoneSelecting);
 				}
 			}
 		}
@@ -504,19 +507,25 @@ public class RockPaperScissorsScript : NetworkBehaviour
 		}
 	}
 
-	[Command]
-	public void CmdUpdateValues(string p2Selection, bool p2Done)
-	{
-		//Update the values of all varaibles needed
-		player2SelectionMulti = p2Selection;
-		p2DoneSelecting = p2Done;
-	}
-
-	[ClientRpc]
-	public void RpcUpdateValues(string p1Selection, bool p1Done)
-	{
-		//Update the values of all varaibles needed
-		player1SelectionMulti = p1Selection;
-		p1DoneSelecting = p1Done;
-	}
+//	[Client]
+//	public void UpdateValues(string p2Selection, bool p2Done)
+//	{
+//		CmdUpdateValues(p2Selection, p2Done);
+//	}
+//
+//	[Command]
+//	public void CmdUpdateValues(string p2Selection, bool p2Done)
+//	{
+//		//Update the values of all varaibles needed
+//		player2SelectionMulti = p2Selection;
+//		p2DoneSelecting = p2Done;
+//	}
+//
+//	[ClientRpc]
+//	public void RpcUpdateValues(string p1Selection, bool p1Done)
+//	{
+//		//Update the values of all varaibles needed
+//		player1SelectionMulti = p1Selection;
+//		p1DoneSelecting = p1Done;
+//	}
 }

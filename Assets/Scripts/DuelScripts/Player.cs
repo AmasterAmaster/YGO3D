@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
 	//Player variables
 	public int lifePoints = 8000;
@@ -17,6 +17,15 @@ public class Player : MonoBehaviour
 	public MainGameScript game;
 
 	public bool doOnce = true;
+
+	//RockPaperScissors variables
+	public RockPaperScissorsScript rps;
+
+	void Start()
+	{
+		if(GameObject.Find("RockPaperScissorsManager") != null)
+			rps = GameObject.Find("RockPaperScissorsManager").GetComponent<RockPaperScissorsScript>();
+	}
 	
 	void Update()
 	{
@@ -164,5 +173,13 @@ public class Player : MonoBehaviour
 		
 		//Then pass the new length to the graveyard length
 		cardsInHand = tempCards;
+	}
+
+	//----------Networking Functions only------------------
+	[Command]
+	public void CmdUpdateRPS(string p2Selection, bool p2Done)
+	{
+		rps.player2SelectionMulti = p2Selection;
+		rps.p2DoneSelecting = p2Done;
 	}
 }
