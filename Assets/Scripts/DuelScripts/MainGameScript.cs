@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
-public class MainGameScript : MonoBehaviour
+public class MainGameScript : NetworkBehaviour
 {
 	//Game mode variables
 	[Tooltip("This mode means that this game is in the process of being debuged at the moment.")]
@@ -463,11 +463,15 @@ public class MainGameScript : MonoBehaviour
 			//Replace the AI deck with the other player's deck (by looping through all the cards from the other player)
 			if(options.hostingPlayer)
 			{
+				//Easy way, go this route and try to move each card infomation through here.
+				//Hard way, get the client's deck recipe (from file) and line by line send each card serial number and recreate each card into a deck exactly the way it was made.
+				Debug.Log("Player2's Deck index 0: " + player2.deck.deck[0].name);
 				player2.RpcGetClientDeck();
 			}
 
 			if(options.joiningPlayer)
 			{
+				Debug.Log("Player1's Deck index 0: " + player1.deck.deck[0].name);
 				player1.CmdGetHostDeck();
 			}
 		}

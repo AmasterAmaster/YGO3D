@@ -35,9 +35,10 @@ public class Player : NetworkBehaviour
 		//Find THIS player's deck information (to grab later during the game)
 		if(GameObject.Find("CurrentDeck") != null)
 		{
-			deck = GameObject.Find("CurrentDeck").GetComponent<Deck>();
-			sideDeck = GameObject.Find("CurrentDeck").GetComponent<SideDeck>();
-			extraDeck = GameObject.Find("CurrentDeck").GetComponent<ExtraDeck>();
+			GameObject theDeck = GameObject.Find("CurrentDeck");
+			deck = theDeck.GetComponent<Deck>();
+			sideDeck = theDeck.GetComponent<SideDeck>();
+			extraDeck = theDeck.GetComponent<ExtraDeck>();
 		}
 	}
 	
@@ -233,6 +234,7 @@ public class Player : NetworkBehaviour
 	public void CmdGetHostDeck()
 	{
 		//Transfer all information in these big types (becuase we cant send components themselves)
+		Debug.Log("Player2's Deck index 0: " + deck.deck[0].name);
 		game.currentDeckAI = deck;
 		game.currentExtraDeckAI = extraDeck;
 		game.currentSideDeckAI = sideDeck;
@@ -242,6 +244,7 @@ public class Player : NetworkBehaviour
 	public void RpcGetClientDeck()
 	{
 		//Transfer all information in these big types (becuase we cant send components themselves)
+		Debug.Log("Player1's Deck index 0: " + deck.deck[0].name);
 		game.currentDeckAI = deck;
 		game.currentExtraDeckAI = extraDeck;
 		game.currentSideDeckAI = sideDeck;

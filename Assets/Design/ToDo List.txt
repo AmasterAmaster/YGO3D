@@ -1,7 +1,7 @@
 Importent/Must have:
-- Each card effect in script form (with individual working effects in the game)
+- Each card effect in script form (with individual working effects in the game) [Reason: Content]
 - Networking (Connect to another client and play the game) [Reason: Dogfooding]
-- Finalize Core Mechanics:
+- Finalize Core Mechanics: [Reason: Mechanics]
 	- Drawing
 	- Discarding
 	- Other Summons:
