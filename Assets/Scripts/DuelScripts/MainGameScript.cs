@@ -456,25 +456,6 @@ public class MainGameScript : NetworkBehaviour
 		currentDeckAI = GameObject.Find("AICurrentDeck").GetComponent<Deck>();
 		currentExtraDeckAI = GameObject.Find("AICurrentDeck").GetComponent<ExtraDeck>();
 		currentSideDeckAI = GameObject.Find("AICurrentDeck").GetComponent<SideDeck>();
-
-		//If it is a multiplayer game...
-		if(multiplayerGame)
-		{
-			//Replace the AI deck with the other player's deck (by looping through all the cards from the other player)
-			if(options.hostingPlayer)
-			{
-				//Easy way, go this route and try to move each card infomation through here.
-				//Hard way, get the client's deck recipe (from file) and line by line send each card serial number and recreate each card into a deck exactly the way it was made.
-				Debug.Log("Player2's Deck index 0: " + player2.deck.deck[0].name);
-				player2.RpcGetClientDeck();
-			}
-
-			if(options.joiningPlayer)
-			{
-				Debug.Log("Player1's Deck index 0: " + player1.deck.deck[0].name);
-				player1.CmdGetHostDeck();
-			}
-		}
 		
 		//Set up the deck of cards to have the extra card properties included with the card game objects
 		if(currentDeck != null && currentExtraDeck != null && currentSideDeck != null && currentDeckAI != null && currentExtraDeckAI != null && currentSideDeckAI != null)
@@ -2670,6 +2651,13 @@ public class MainGameScript : NetworkBehaviour
 	//-------------------------------------------------------------------------CUSTOM FUNCTIONS-----------------------------------------------------------------------------------------------
 	public void SetupDuel()
 	{
+		//Failsafe - Find the player's decks (multiplayer) and set the cards right before we setup the cards in the decks (last resort)
+		if(multiplayerGame)
+		{
+			//Find the players and their decks (multiplayer)
+			FindPlayerClones();
+		}
+
 		//Set up the duel with both player's decks and hands
 		currentDeck.transform.position = mainDeckAreaP1.transform.position;
 		currentDeckAI.transform.position = mainDeckAreaP2.transform.position;
@@ -3785,6 +3773,100 @@ public class MainGameScript : NetworkBehaviour
 		{
 			player2.cardsInHand[i].gameObject.transform.GetChild(0).gameObject.GetComponent<MeshCollider>().enabled = true;
 			player2.cardsInHand[i].gameObject.transform.GetChild(1).gameObject.GetComponent<MeshCollider>().enabled = true;
+		}
+	}
+
+	//Used only to find the player clones for a multiplayer game, then sets the decks the right way.
+	public void FindPlayerClones()
+	{
+		//Replace the AI deck with the other player's deck (by looping through all the cards from the other player)
+		if(options.hostingPlayer)
+		{
+			player2.RpcGetClientDeck();
+		}
+
+		if(options.joiningPlayer)
+		{
+			player1.CmdGetHostDeck();
+		}
+
+		//Populate the AI decks (from server and client) with cards
+
+		//Set up the deck of cards to have the extra card properties included with the card game objects
+		if(currentDeck != null && currentExtraDeck != null && currentSideDeck != null && currentDeckAI != null && currentExtraDeckAI != null && currentSideDeckAI != null)
+		{
+			//Loop through the deck to add the extra properties...
+			for(int i = 0; i < currentDeck.deck.Length; i++)
+			{
+				if(currentDeck.deck[i] != null)
+				{
+					//Add the extra properties component
+					currentDeck.deck[i].gameObject.AddComponent<ExtraCardProperties>();
+					currentDeck.deck[i].gameObject.GetComponent<ExtraCardProperties>().owner = player1;
+				}
+			}
+
+			//Loop through the extra deck to add the extra properties...
+			for(int i = 0; i < currentExtraDeck.extraDeck.Length; i++)
+			{
+				//Add the extra properties component
+				if(currentExtraDeck.extraDeck[i] != null)
+				{
+					currentExtraDeck.extraDeck[i].gameObject.AddComponent<ExtraCardProperties>();
+					currentExtraDeck.extraDeck[i].gameObject.GetComponent<ExtraCardProperties>().owner = player1;
+				}
+			}
+
+			//Loop through the side deck to add the extra properties... (just incase of a Match and not a Single duel)
+			for(int i = 0; i < currentSideDeck.sideDeck.Length; i++)
+			{
+				//Add the extra properties component
+				if(currentSideDeck.sideDeck[i] != null)
+				{
+					currentSideDeck.sideDeck[i].gameObject.AddComponent<ExtraCardProperties>();
+					currentSideDeck.sideDeck[i].gameObject.GetComponent<ExtraCardProperties>().owner = player1;
+				}
+			}
+
+			//Loop through the AI deck to add the extra properties...
+			for(int i = 0; i < currentDeckAI.deck.Length; i++)
+			{
+				if(currentDeckAI.deck[i] != null)
+				{
+					//Add the extra properties component
+					currentDeckAI.deck[i].gameObject.AddComponent<ExtraCardProperties>();
+					currentDeckAI.deck[i].gameObject.GetComponent<ExtraCardProperties>().owner = player2;
+				}
+			}
+
+			//Loop through the AI extra deck to add the extra properties...
+			for(int i = 0; i < currentExtraDeckAI.extraDeck.Length; i++)
+			{
+				//Add the extra properties component
+				if(currentExtraDeckAI.extraDeck[i] != null)
+				{
+					currentExtraDeckAI.extraDeck[i].gameObject.AddComponent<ExtraCardProperties>();
+					currentExtraDeckAI.extraDeck[i].gameObject.GetComponent<ExtraCardProperties>().owner = player2;
+				}
+			}
+
+			//Loop through the AI side deck to add the extra properties... (just incase of a Match and not a Single duel)
+			for(int i = 0; i < currentSideDeckAI.sideDeck.Length; i++)
+			{
+				//Add the extra properties component
+				if(currentSideDeckAI.sideDeck[i] != null)
+				{
+					currentSideDeckAI.sideDeck[i].gameObject.AddComponent<ExtraCardProperties>();
+					currentSideDeckAI.sideDeck[i].gameObject.GetComponent<ExtraCardProperties>().owner = player2;
+				}
+			}
+
+			//Shuffle the cards (both players)
+			ShuffleDeck(currentDeck);
+			ShuffleDeck(currentDeckAI);
+
+			//Load Crosshair
+			crosshair = GameObject.Find("Crosshair").GetComponent<CrosshairScript>();
 		}
 	}
 }

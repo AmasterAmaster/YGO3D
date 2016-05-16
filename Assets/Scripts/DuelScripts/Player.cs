@@ -234,7 +234,6 @@ public class Player : NetworkBehaviour
 	public void CmdGetHostDeck()
 	{
 		//Transfer all information in these big types (becuase we cant send components themselves)
-		Debug.Log("Player2's Deck index 0: " + deck.deck[0].name);
 		game.currentDeckAI = deck;
 		game.currentExtraDeckAI = extraDeck;
 		game.currentSideDeckAI = sideDeck;
@@ -244,7 +243,6 @@ public class Player : NetworkBehaviour
 	public void RpcGetClientDeck()
 	{
 		//Transfer all information in these big types (becuase we cant send components themselves)
-		Debug.Log("Player1's Deck index 0: " + deck.deck[0].name);
 		game.currentDeckAI = deck;
 		game.currentExtraDeckAI = extraDeck;
 		game.currentSideDeckAI = sideDeck;
