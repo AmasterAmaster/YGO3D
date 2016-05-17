@@ -28,11 +28,13 @@ Not Importent/Implement later:
 	- Have a thing where joining mid match, using the host's/server's current replay file to catch you up. All the while recording the mid match while catching up (always following the host's/server's ever chaning and updating replay file)
 	- Have a system that creates a replay as the game goes on, writing a file in coded symbols or text commands (such as NSum = Normal Summon, [P2 M: 55]A[P1 M: 45] = Player2's monster attacks Player1's monster).
 	- Have a button to re-watch old replays. (reading all the coded things in the file)
+- VR/AR Supported Version
 
 Extras:
 - Art Design rework for menus and buttons (in all scenes)
 - Art Design rework for main duel field
 - Support ydk file format (problem on MAC OS)
+- Stage Supported Version
 
 -----------------------------------------
 Working on:
