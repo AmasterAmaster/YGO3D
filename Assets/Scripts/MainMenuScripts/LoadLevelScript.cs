@@ -29,9 +29,14 @@ public class LoadLevelScript : MonoBehaviour
 	public bool mainDeckGrid = true;
 	public bool extraDeckGrid = false;
 	public bool sideDeckGrid = false;
+
+	public OptionsScript options;
 	
 	void Start()
 	{
+		if(GameObject.Find("OptionsManager") != null)
+			options = GameObject.Find("OptionsManager").GetComponent<OptionsScript>();
+
 		//Find the deck everytime the user returns to the main menu
 		if(GameObject.Find("CurrentDeck") != null)
 		{
@@ -203,7 +208,11 @@ public class LoadLevelScript : MonoBehaviour
 			break;
 		case 6:
 			//Options
-			//Application.LoadLevel("Options");
+			options.exiting = false;
+
+			//Reset the do once action for options only
+			options.doOnce = true;
+
 			SceneManager.LoadScene("Options");
 			break;
 		case 7:

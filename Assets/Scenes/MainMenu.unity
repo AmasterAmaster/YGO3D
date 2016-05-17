@@ -203,7 +203,7 @@ MonoBehaviour:
   m_SpawnPrefabs:
   - {fileID: 113648, guid: d1da220a0f2950049b01ed84ea4c06c7, type: 2}
   - {fileID: 186314, guid: 046b418bda64ead4b9564ba18f44f05f, type: 2}
-  - {fileID: 115586, guid: 0b25f03ccef3e4a47bfdc11d0c0b4bad, type: 2}
+  - {fileID: 0}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -2275,6 +2275,7 @@ MonoBehaviour:
   showFPS: 0
   showLines: 0
   doOnce: 1
+  exiting: 0
 --- !u!1 &1621490361
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,6 +2779,7 @@ MonoBehaviour:
   mainDeckGrid: 1
   extraDeckGrid: 0
   sideDeckGrid: 0
+  options: {fileID: 1621350256}
 --- !u!1 &1789714778
 GameObject:
   m_ObjectHideFlags: 0

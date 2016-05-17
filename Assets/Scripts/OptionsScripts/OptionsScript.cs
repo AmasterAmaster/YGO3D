@@ -172,6 +172,7 @@ public class OptionsScript : MonoBehaviour
 
 	//Other variables
 	public bool doOnce = true;
+	public bool exiting = false;
 	
 	//Update is called once per frame
 	void Update()
@@ -181,7 +182,7 @@ public class OptionsScript : MonoBehaviour
 		{
 			int result;
 
-			if(doOnce)
+			if(doOnce && !exiting)
 			{
 				//Find objects in this menu
 				FindAllObjects();
@@ -284,8 +285,8 @@ public class OptionsScript : MonoBehaviour
 
 	public void ExitOptions()
 	{
-		//Reset the do once action for options only
-		doOnce = true;
+		//We are exiting
+		exiting = true;
 
 		//Return to the main menu
 		SceneManager.LoadScene("MainMenu");
@@ -296,9 +297,6 @@ public class OptionsScript : MonoBehaviour
 		//Check if we are in Options
 		if(SceneManager.GetActiveScene().buildIndex == 4)
 		{
-			//Turn everything on to find everything (fail safe - implement later)
-			//TurnOnEverything();
-
 			//Find all the nessesary components needed for options
 			computerVersionToggle = GameObject.Find("ComputerVersionToggle").GetComponent<Toggle>();
 			hololensVersionToggle = GameObject.Find("HololensVersionToggle").GetComponent<Toggle>();

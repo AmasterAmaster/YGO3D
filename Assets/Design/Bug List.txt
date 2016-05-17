@@ -12,7 +12,6 @@ Major (B-Bugs):
 
 Minor (C-Bugs):
 	[Options]
-- Makes an error when Options is exited. (something to do with the back button being NULL (start of the second page))
 - Mac Builds double paste content from their clipboard on UI elements.
 
 Would be nice to add (D-Bugs):
