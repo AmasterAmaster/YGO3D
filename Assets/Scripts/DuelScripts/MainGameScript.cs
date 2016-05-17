@@ -3810,7 +3810,7 @@ public class MainGameScript : NetworkBehaviour
 		if(options.hostingPlayer)
 		{
 			//Loop for each index (up to 60 cards)
-			for(int i = 0; i < 60; i++)
+			for(int i = 0; i < 40; i++)
 			{
 				//Get a serial number using index (setting a variable)
 				player2.RpcGetCardInfo(i);
@@ -3858,7 +3858,7 @@ public class MainGameScript : NetworkBehaviour
 		if(options.joiningPlayer)
 		{
 			//Loop for each index (up to 60 cards)
-			for(int i = 0; i < 60; i++)
+			for(int i = 0; i < 40; i++)
 			{
 				//Get a serial number using index (setting a variable)
 				player1.CmdGetCardInfo(i);

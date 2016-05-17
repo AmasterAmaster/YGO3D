@@ -1,14 +1,21 @@
 Game-Breaking (A-Bugs):
-- Server side cannot control it's own player
+	[Single player]
+- N/A
+	[Multiplayer]
+- Client side cannot control it's own player
 - Host is having problems getting client's deck. (Multiplayer)
-- Client is having problems getting both decks. (Multiplayer)
+- Client is having problems getting host's decks. (Multiplayer)
 
 Major (B-Bugs):
+	[Options]
 - Option menu features are not implemented (Dummy Buttons)
 
 Minor (C-Bugs):
+	[Options]
 - Makes an error when Options is exited. (something to do with the back button being NULL (start of the second page))
 
 Would be nice to add (D-Bugs):
+	[Menus]
 - Would be nice to have a searching function to search cards by name instead by serial number.
+	[Multiplayer]
 - Would be nice to let the players know that both player's picked the same hand in (Rock-Paper-Scissors).
