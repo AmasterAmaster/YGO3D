@@ -426,6 +426,10 @@ public class MainGameScript : NetworkBehaviour
 	
 	//Gameover/Replay variables
 	public string gameoverReason = "";
+
+	//Other variables
+	public int hostSerialNumber = 0;
+	public int clientSerialNumber = 0;
 	
 	//-------------------------------------------------------------------------STARTUP-----------------------------------------------------------------------------------------------
 	void Start()
@@ -3782,15 +3786,121 @@ public class MainGameScript : NetworkBehaviour
 		//Replace the AI deck with the other player's deck (by looping through all the cards from the other player)
 		if(options.hostingPlayer)
 		{
+			//Fix the camera problem
+			player1.gameObject.GetComponent<Camera>().depth = 2;
+
 			player2.RpcGetClientDeck();
+			player2.deck = currentDeckAI;
+			player2.extraDeck = currentExtraDeckAI;
+			player2.sideDeck = currentSideDeckAI;
 		}
 
 		if(options.joiningPlayer)
 		{
+			//Fix the camera problem
+			player2.gameObject.GetComponent<Camera>().depth = 2;
+
 			player1.CmdGetHostDeck();
+			player1.deck = currentDeckAI;
+			player1.extraDeck = currentExtraDeckAI;
+			player1.sideDeck = currentSideDeckAI;
 		}
 
 		//Populate the AI decks (from server and client) with cards
+		if(options.hostingPlayer)
+		{
+			//Loop for each index (up to 60 cards)
+			for(int i = 0; i < 60; i++)
+			{
+				//Get a serial number using index (setting a variable)
+				player2.RpcGetCardInfo(i);
+
+				//If we dont have a null card (end of deck special number)...
+				if(clientSerialNumber != 1)
+				{
+					//Use that variable to store that number into the deck somehow (Serial -> Card Object -> Deck Object)
+					GameObject opponentCard = new GameObject("" + clientSerialNumber);
+					opponentCard.transform.SetParent(currentDeck.gameObject.transform);
+					opponentCard.AddComponent<Card>();
+					Card opponentCardInfo = CardDatabase.GetCardInfo(clientSerialNumber, opponentCard.GetComponent<Card>());
+					opponentCard.GetComponent<Card>().name = opponentCardInfo.name;
+					opponentCard.GetComponent<Card>().cardType = opponentCardInfo.cardType;
+					opponentCard.GetComponent<Card>().serial = opponentCardInfo.serial;
+					opponentCard.GetComponent<Card>().level = opponentCardInfo.rank;
+					opponentCard.GetComponent<Card>().attribute = opponentCardInfo.attribute;
+					opponentCard.GetComponent<Card>().monsterType = opponentCardInfo.monsterType;
+					opponentCard.GetComponent<Card>().monsterSubType = opponentCardInfo.monsterSubType;
+					opponentCard.GetComponent<Card>().spellType = opponentCardInfo.spellType;
+					opponentCard.GetComponent<Card>().trapType = opponentCardInfo.trapType;
+					opponentCard.GetComponent<Card>().attack = opponentCardInfo.attack;
+					opponentCard.GetComponent<Card>().defense = opponentCardInfo.defense;
+
+					if(currentDeckAI.deck.Length - 1 < i)
+					{
+						Card[] temp = new Card[currentDeckAI.deck.Length + 1];
+						currentDeckAI.deck.CopyTo(temp, 0);
+						currentDeckAI.deck = temp;
+						currentDeckAI.deck[i] = opponentCard.GetComponent<Card>();
+					}
+					else
+					{
+						currentDeckAI.deck[i] = opponentCard.GetComponent<Card>();
+					}
+				}
+				//Else, we have reached the end...
+				else
+				{
+					break;
+				}
+			}
+		}
+
+		if(options.joiningPlayer)
+		{
+			//Loop for each index (up to 60 cards)
+			for(int i = 0; i < 60; i++)
+			{
+				//Get a serial number using index (setting a variable)
+				player1.CmdGetCardInfo(i);
+
+				if(hostSerialNumber != 1)
+				{
+					//Use that variable to store that number into the deck somehow (Serial -> Card Object -> Deck Object)
+					GameObject opponentCard = new GameObject("" + hostSerialNumber);
+					opponentCard.transform.SetParent(currentDeck.gameObject.transform);
+					opponentCard.AddComponent<Card>();
+					Card opponentCardInfo = CardDatabase.GetCardInfo(hostSerialNumber, opponentCard.GetComponent<Card>());
+					opponentCard.GetComponent<Card>().name = opponentCardInfo.name;
+					opponentCard.GetComponent<Card>().cardType = opponentCardInfo.cardType;
+					opponentCard.GetComponent<Card>().serial = opponentCardInfo.serial;
+					opponentCard.GetComponent<Card>().level = opponentCardInfo.rank;
+					opponentCard.GetComponent<Card>().attribute = opponentCardInfo.attribute;
+					opponentCard.GetComponent<Card>().monsterType = opponentCardInfo.monsterType;
+					opponentCard.GetComponent<Card>().monsterSubType = opponentCardInfo.monsterSubType;
+					opponentCard.GetComponent<Card>().spellType = opponentCardInfo.spellType;
+					opponentCard.GetComponent<Card>().trapType = opponentCardInfo.trapType;
+					opponentCard.GetComponent<Card>().attack = opponentCardInfo.attack;
+					opponentCard.GetComponent<Card>().defense = opponentCardInfo.defense;
+
+					if(currentDeckAI.deck.Length - 1 < i)
+					{
+						Card[] temp = new Card[currentDeckAI.deck.Length + 1];
+						currentDeckAI.deck.CopyTo(temp, 0);
+						currentDeckAI.deck = temp;
+						currentDeckAI.deck[i] = opponentCard.GetComponent<Card>();
+					}
+					else
+					{
+						currentDeckAI.deck[i] = opponentCard.GetComponent<Card>();
+					}
+				}
+				//Else, we have reached the end...
+				else
+				{
+					break;
+				}
+			}
+		}
 
 		//Set up the deck of cards to have the extra card properties included with the card game objects
 		if(currentDeck != null && currentExtraDeck != null && currentSideDeck != null && currentDeckAI != null && currentExtraDeckAI != null && currentSideDeckAI != null)

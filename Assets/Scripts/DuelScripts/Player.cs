@@ -247,4 +247,35 @@ public class Player : NetworkBehaviour
 		game.currentExtraDeckAI = extraDeck;
 		game.currentSideDeckAI = sideDeck;
 	}
+
+	//Card information transfer functions below
+	[Command]
+	public void CmdGetCardInfo(int index)
+	{
+		//Return the serial number somehow
+		if(deck.deck[index] != null && deck.deck.Length - 1 > index)
+		{
+			game.hostSerialNumber = deck.deck[index].serial;
+		}
+		else
+		{
+			//Send a special number back saying this error-ed card is null (maybe this is the end of the deck?)
+			game.hostSerialNumber = 1;
+		}
+	}
+
+	[ClientRpc]
+	public void RpcGetCardInfo(int index)
+	{
+		//Return the serial number somehow
+		if(deck.deck[index] != null && deck.deck.Length - 1 > index)
+		{
+			game.clientSerialNumber = deck.deck[index].serial;
+		}
+		else
+		{
+			//Send a special number back saying this error-ed card is null (maybe this is the end of the deck?)
+			game.clientSerialNumber = 1;
+		}
+	}
 }
