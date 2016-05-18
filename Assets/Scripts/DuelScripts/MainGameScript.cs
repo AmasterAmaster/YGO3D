@@ -553,8 +553,22 @@ public class MainGameScript : NetworkBehaviour
 	void Update()
 	{
 		//Get the mouse click (high enough priority to be on the top level update)
-		mouseRayP1 = player1.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-		mouseRayP2 = player2.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+		if(multiplayerGame)
+		{
+			if(options.hostingPlayer)
+			{
+				mouseRayP1 = player1.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+			}
+			else if(options.joiningPlayer)
+			{
+				mouseRayP2 = player2.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+			}
+		}
+		else
+		{
+			mouseRayP1 = player1.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+			mouseRayP2 = player2.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+		}
 		
 		//Update turn counters
 		turnCounter01.text = "Turn: " + turnCounter;
@@ -3765,12 +3779,23 @@ public class MainGameScript : NetworkBehaviour
 	//Used only to find the player clones for a multiplayer game, then sets the decks the right way.
 	public void FindPlayerClones()
 	{
+		//Fix cameras here
+		if(options.hostingPlayer)
+		{
+			//player1.gameObject.GetComponent<Camera>().depth = 2;
+			if(GameObject.Find("Player1(Clone)") != null)
+				GameObject.Find("Player1(Clone)").GetComponent<Camera>().depth = 2;
+		}
+		else if(options.joiningPlayer)
+		{
+			//player2.gameObject.GetComponent<Camera>().depth = 2;
+			if(GameObject.Find("Player2(Clone)") != null)
+				GameObject.Find("Player2(Clone)").GetComponent<Camera>().depth = 2;
+		}
+
 		//Replace the AI deck with the other player's deck (by looping through all the cards from the other player)
 		if(options.hostingPlayer)
 		{
-			//Fix the camera problem
-			player1.gameObject.GetComponent<Camera>().depth = 2;
-
 			player2.RpcGetClientDeck();
 			player2.deck = currentDeckAI;
 			player2.extraDeck = currentExtraDeckAI;
@@ -3779,9 +3804,6 @@ public class MainGameScript : NetworkBehaviour
 
 		if(options.joiningPlayer)
 		{
-			//Fix the camera problem
-			player2.gameObject.GetComponent<Camera>().depth = 2;
-
 			player1.CmdGetHostDeck();
 			player1.deck = currentDeckAI;
 			player1.extraDeck = currentExtraDeckAI;

@@ -35,6 +35,7 @@ Extras:
 - Art Design rework for main duel field
 - Support ydk file format (problem on MAC OS)
 - Stage Supported Version
+- Add a cookie system (whoever helps the most (or real-time duling wins after the program is made) get more cookies).
 
 -----------------------------------------
 Working on:

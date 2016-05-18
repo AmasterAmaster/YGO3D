@@ -13,6 +13,8 @@ Major (B-Bugs):
 Minor (C-Bugs):
 	[Menus]
 - Mac Builds double paste content from their clipboard on UI elements.
+- CAP THAT FRAMERATE! (60, the most)
+- Fix (now a typo) "Hololens" -> "AR/VR".
 
 Would be nice to add (D-Bugs):
 	[Menus]
