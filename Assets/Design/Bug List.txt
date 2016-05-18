@@ -2,7 +2,7 @@ Game-Breaking (A-Bugs):
 	[Single player]
 - Shuffle Button makes some cards disappear from the hand (Currently unreliable)
 	[Multiplayer]
-- Client side cannot control it's own player
+- Standalone unity player cannot control it's own player.
 - Host is having problems getting client's deck. (Multiplayer)
 - Client is having problems getting host's decks. (Multiplayer)
 
@@ -13,7 +13,6 @@ Major (B-Bugs):
 Minor (C-Bugs):
 	[Menus]
 - Mac Builds double paste content from their clipboard on UI elements.
-- CAP THAT FRAMERATE! (60, the most)
 - Fix (now a typo) "Hololens" -> "AR/VR".
 
 Would be nice to add (D-Bugs):

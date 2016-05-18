@@ -9,6 +9,9 @@ using UnityEngine.Networking;
 
 public class OptionsScript : MonoBehaviour
 {
+	//Application Settings
+	public int framerate = 60;
+
 	//Carryover variables (Netowrking)
 	public bool startedMultiplayerGame = false;
 	public bool hostingPlayer = false;
@@ -173,6 +176,12 @@ public class OptionsScript : MonoBehaviour
 	//Other variables
 	public bool doOnce = true;
 	public bool exiting = false;
+
+	void Awake()
+	{
+		//Setting the target framerate
+		Application.targetFrameRate = framerate;
+	}
 	
 	//Update is called once per frame
 	void Update()
